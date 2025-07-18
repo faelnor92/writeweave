@@ -39,11 +39,11 @@ const getProvider = () => {
 }
 
 // Wrapper pour simplifier les appels
-const callProvider = (funcName: keyof typeof geminiProvider, ...args: any[]) => {
+const callProvider = (funcName: string, ...args: any[]) => {
     try {
         const { provider, args: providerArgs } = getProvider();
-        if (typeof provider[funcName] === 'function') {
-            return (provider[funcName] as Function)(...providerArgs, ...args);
+        if (typeof (provider as any)[funcName] === 'function') {
+            return ((provider as any)[funcName] as Function)(...providerArgs, ...args);
         }
         throw new Error(`La fonction ${funcName} n'est pas implémentée pour le fournisseur ${currentSettings.provider}.`);
     } catch (error) {
@@ -84,3 +84,13 @@ export const generateDialogue = (character: Character, context: string, lang: st
 export const checkRealtimeCoherence = (text: string, lang: string): Promise<string | null> => callProvider('checkRealtimeCoherence', text, lang);
 export const generateInspirationCard = (type: 'character' | 'conflict' | 'place', lang: string): Promise<string> => callProvider('generateInspirationCard', type, lang);
 export const analyzeStyle = (text: string, lang: string): Promise<string> => callProvider('analyzeStyle', text, lang);
+
+// NOUVELLES FONCTIONS POUR L'ANALYSE AVANCÉE
+export const analyzeEmotionalArc = (chapters: Array<{ title: string; content: string }>, lang: string): Promise<any> => callProvider('analyzeEmotionalArc', chapters, lang);
+export const analyzeCharacterEmotions = (novelText: string, characters: Character[], lang: string): Promise<any> => callProvider('analyzeCharacterEmotions', novelText, characters, lang);
+export const analyzeNarrativeStructure = (novelText: string, lang: string): Promise<any> => callProvider('analyzeNarrativeStructure', novelText, lang);
+export const analyzeWritingStyle = (text: string, lang: string): Promise<any> => callProvider('analyzeWritingStyle', text, lang);
+export const detectEmotionalInconsistencies = (novelText: string, lang: string): Promise<any> => callProvider('detectEmotionalInconsistencies', novelText, lang);
+export const analyzeNarrativePacing = (novelText: string, lang: string): Promise<any> => callProvider('analyzeNarrativePacing', novelText, lang);
+export const analyzeConflictProgression = (novelText: string, lang: string): Promise<any> => callProvider('analyzeConflictProgression', novelText, lang);
+export const analyzeThematicCohesion = (novelText: string, lang: string): Promise<any> => callProvider('analyzeThematicCohesion', novelText, lang);

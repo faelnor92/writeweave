@@ -80,7 +80,8 @@ export const callOpenRouterSafe = async (
     temperature?: number;
     max_tokens?: number;
     response_format?: { type: 'json_object' };
-  } = {}
+  } = {},
+  expectJson: boolean = false
 ): Promise<any> => {
   try {
     const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
@@ -95,9 +96,22 @@ export const callOpenRouterSafe = async (
       try {
           parsedError = JSON.parse(errorText);
       } catch(e) { /* not a json error */ }
-      const errorMessage = parsedError?.error?.message || errorText || response.statusText;
-      console.error('OpenRouter API Error:', response.status, errorMessage);
-      throw new Error(`Erreur OpenRouter (${response.status}): ${errorMessage}`);
+      const providerMessage = parsedError?.error?.message || errorText || response.statusText;
+      console.error('OpenRouter API Error:', response.status, providerMessage);
+      
+      let userFriendlyMessage = `Erreur OpenRouter (${response.status}): ${providerMessage}`;
+      
+      if (response.status === 429) {
+          const limitMatch = providerMessage.match(/limited to (.*)\. Please retry shortly/i);
+          if (limitMatch && limitMatch[1]) {
+              userFriendlyMessage = `Limite de requêtes OpenRouter atteinte. Modèle très demandé, limité à ${limitMatch[1]}. Veuillez attendre ou choisir un autre modèle.`;
+          } else {
+              userFriendlyMessage = `Limite de requêtes OpenRouter atteinte. Veuillez attendre un moment avant de réessayer.`;
+          }
+      } else if (response.status === 503) {
+          userFriendlyMessage = `Le modèle demandé sur OpenRouter est temporairement indisponible. Veuillez réessayer plus tard ou choisir un autre modèle.`;
+      }
+      throw new Error(userFriendlyMessage);
     }
 
     const data = await response.json();
@@ -107,10 +121,28 @@ export const callOpenRouterSafe = async (
       throw new Error('Réponse vide du modèle');
     }
 
-    if (options.response_format?.type === 'json_object') {
+    if (expectJson) {
         try {
-            const jsonMatch = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
-            const jsonString = jsonMatch ? jsonMatch[1] : content;
+            let jsonString = content;
+            const codeBlockMatch = content.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+            if (codeBlockMatch) {
+                jsonString = codeBlockMatch[1];
+            } else {
+                const firstBrace = jsonString.indexOf('{');
+                const firstBracket = jsonString.indexOf('[');
+                let start = -1;
+                if (firstBrace === -1) start = firstBracket;
+                else if (firstBracket === -1) start = firstBrace;
+                else start = Math.min(firstBrace, firstBracket);
+                if (start !== -1) {
+                    const lastBrace = jsonString.lastIndexOf('}');
+                    const lastBracket = jsonString.lastIndexOf(']');
+                    const end = Math.max(lastBrace, lastBracket);
+                    if (end > start) {
+                        jsonString = jsonString.substring(start, end + 1);
+                    }
+                }
+            }
             return JSON.parse(jsonString);
         } catch (e) {
             console.error("Impossible de parser le JSON d'OpenRouter:", content, e);

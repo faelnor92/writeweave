@@ -18,6 +18,7 @@ import NotesPanel from './components/NotesPanel.tsx';
 import AssistantPanel from './components/AssistantPanel.tsx';
 import Images from './components/Images.tsx';
 import AnalyticsHub from './components/AnalyticsHub.tsx';
+import AnalysisDashboard from './components/AnalysisDashboard.tsx';
 import Marketing from './components/Marketing.tsx';
 import Settings from './components/Settings.tsx';
 import Publication from './components/Publication.tsx';
@@ -692,6 +693,8 @@ const AppContent: React.FC = () => {
                 );
             case 'analytics':
                  return <AnalyticsHub novel={activeNovel} lang={language} />;
+            case 'analysisDashboard':
+                 return <AnalysisDashboard novel={activeNovel} lang={language} />;
             case 'marketing':
                  return <Marketing novel={activeNovel} lang={language} />;
             case 'settings':
