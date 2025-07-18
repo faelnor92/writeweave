@@ -1,0 +1,75 @@
+
+{
+  "app": {
+    "loading": "Загрузка вашей писательской мастерской...",
+    "errorTitle": "Ошибка Загрузки",
+    "errorSubtitle": "Не удалось загрузить роман или главу.",
+    "backToHome": "Вернуться на главную"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "Воплотите ваши истории в жизнь.",
+    "createNewNovel": "Создать новый роман",
+    "novelTitlePlaceholder": "Название вашего романа...",
+    "createButton": "Создать",
+    "openExistingProject": "Открыть существующий проект",
+    "deleteNovelTitle": "Подтвердить Удаление",
+    "deleteNovelConfirm": "Вы уверены, что хотите навсегда удалить \"{title}\"? Это действие необратимо.",
+    "cancel": "Отмена",
+    "delete": "Удалить"
+  },
+  "sidebar": {
+    "editor": "Редактор",
+    "plan": "План",
+    "preview": "Просмотр",
+    "characters": "Перс.",
+    "relationships": "Отношения",
+    "places": "Места",
+    "images": "Изображения",
+    "timeline": "Хронология",
+    "analytics": "Аналитика",
+    "marketing": "Маркетинг",
+    "styleStudio": "Стиль",
+    "tools": "Инструменты",
+    "publication": "Публикация",
+    "settings": "Настройки",
+    "theme": "Тема",
+    "themeSwitch": "Переключиться в режим {theme}"
+  },
+  "publication": {
+    "title": "Публикация и Экспорт",
+    "subtitle": "Подготовьте вашу рукопись к экспорту и улучшите релевантность ИИ.",
+    "authorName": "Имя Автора",
+    "acknowledgements": "Благодарности",
+    "genre": "Жанр Романа",
+    "era": "Эпоха / Контекст",
+    "iaHelp": "Указание жанра и эпохи поможет ИИ предлагать более релевантные синонимы.",
+    "isbn": "ISBN",
+    "editorName": "Название Издательства",
+    "editorAddress": "Адрес Издательства",
+    "printerName": "Название Типографии",
+    "printerAddress": "Адрес Типографии",
+    "legalDepositDate": "Дата Обязательного Экземпляра",
+    "legalNotice": "Правовая Информация",
+    "legalNoticeText": "Текст Уведомления",
+    "generateWithAI": "Сгенерировать (ИИ)",
+    "adultContent": "Контент для Взрослых",
+    "adultContentWarning": "Показывать предупреждение о контенте для взрослых (18+)",
+    "warningText": "Текст Предупреждения",
+    "warningTextHelp": "Этот текст будет добавлен на отдельную страницу в начале вашей экспортированной рукописи.",
+    "exportTitle": "Экспортируйте Вашу Рукопись",
+    "exportButton": "Экспортировать Рукопись (.docx)"
+  },
+  "toast": {
+    "novelCreated": "Роман \"{title}\" создан!",
+    "novelDeleted": "Роман удален.",
+    "chapterAdded": "Новая глава добавлена",
+    "chapterDeleted": "Глава успешно удалена.",
+    "cantDeleteLastChapter": "Невозможно удалить последнюю главу!",
+    "legalNoticeGenerated": "Правовая информация успешно сгенерирована!",
+    "exportSuccess": "Рукопись успешно экспортирована!",
+    "exportError": "Ошибка экспорта: {error}",
+    "aiError": "Ошибка ИИ: {error}",
+    "exporting": "Идет экспорт..."
+  }
+}

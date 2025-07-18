@@ -1,0 +1,75 @@
+
+{
+  "app": {
+    "loading": "Lade deine Schreibwerkstatt...",
+    "errorTitle": "Ladefehler",
+    "errorSubtitle": "Der Roman oder das Kapitel konnte nicht geladen werden.",
+    "backToHome": "Zurück zur Startseite"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "Erwecke deine Geschichten zum Leben.",
+    "createNewNovel": "Einen neuen Roman erstellen",
+    "novelTitlePlaceholder": "Titel deines Romans...",
+    "createButton": "Erstellen",
+    "openExistingProject": "Ein bestehendes Projekt öffnen",
+    "deleteNovelTitle": "Löschen bestätigen",
+    "deleteNovelConfirm": "Bist du sicher, dass du \"{title}\" endgültig löschen möchtest? Diese Aktion ist unwiderruflich.",
+    "cancel": "Abbrechen",
+    "delete": "Löschen"
+  },
+  "sidebar": {
+    "editor": "Editor",
+    "plan": "Gliederung",
+    "preview": "Vorschau",
+    "characters": "Charaktere",
+    "relationships": "Beziehungen",
+    "places": "Orte",
+    "images": "Bilder",
+    "timeline": "Zeitleiste",
+    "analytics": "Analyse",
+    "marketing": "Marketing",
+    "styleStudio": "Stil",
+    "tools": "Werkzeuge",
+    "publication": "Veröffentlichen",
+    "settings": "Einstellungen",
+    "theme": "Thema",
+    "themeSwitch": "Wechsle zum {theme}-Modus"
+  },
+  "publication": {
+    "title": "Veröffentlichung & Export",
+    "subtitle": "Bereite dein Manuskript für den Export vor und verbessere die Relevanz der KI.",
+    "authorName": "Name des Autors",
+    "acknowledgements": "Danksagungen",
+    "genre": "Roman-Genre",
+    "era": "Epoche / Kontext",
+    "iaHelp": "Die Angabe von Genre und Epoche hilft der KI, relevantere Synonyme vorzuschlagen.",
+    "isbn": "ISBN",
+    "editorName": "Name des Verlegers",
+    "editorAddress": "Adresse des Verlegers",
+    "printerName": "Name der Druckerei",
+    "printerAddress": "Adresse der Druckerei",
+    "legalDepositDate": "Datum der Pflichtablieferung",
+    "legalNotice": "Impressum",
+    "legalNoticeText": "Impressumstext",
+    "generateWithAI": "Generieren (KI)",
+    "adultContent": "Inhalte für Erwachsene",
+    "adultContentWarning": "Warnhinweis für Inhalte für Erwachsene (18+) anzeigen",
+    "warningText": "Warntext",
+    "warningTextHelp": "Dieser Text wird auf einer eigenen Seite am Anfang deines exportierten Manuskripts hinzugefügt.",
+    "exportTitle": "Dein Manuskript exportieren",
+    "exportButton": "Manuskript exportieren (.docx)"
+  },
+  "toast": {
+    "novelCreated": "Roman \"{title}\" erstellt!",
+    "novelDeleted": "Roman gelöscht.",
+    "chapterAdded": "Neues Kapitel hinzugefügt",
+    "chapterDeleted": "Kapitel erfolgreich gelöscht.",
+    "cantDeleteLastChapter": "Das letzte Kapitel kann nicht gelöscht werden!",
+    "legalNoticeGenerated": "Impressum erfolgreich generiert!",
+    "exportSuccess": "Manuskript erfolgreich exportiert!",
+    "exportError": "Exportfehler: {error}",
+    "aiError": "KI-Fehler: {error}",
+    "exporting": "Export wird ausgeführt..."
+  }
+}

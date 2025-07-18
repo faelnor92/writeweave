@@ -1,0 +1,8 @@
+{
+  "name": "WriteWeave",
+  "description": "Une application web pour écrire des romans avec des fonctionnalités d'édition avancées et une assistance par IA de Gemini pour améliorer et continuer votre texte.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "prompt": ""
+}

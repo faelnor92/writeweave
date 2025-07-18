@@ -1,0 +1,12 @@
+{
+  "name": "writeweave",
+  "version": "1.0.0",
+  "description": "Une application web pour écrire des romans avec des fonctionnalités d'édition avancées et une assistance par IA de Gemini pour améliorer et continuer votre texte.",
+  "scripts": {
+    "start": "esbuild index.tsx --servedir=./ --bundle --jsx=automatic --loader:.ts=tsx",
+    "build": "esbuild index.tsx --bundle --outfile=dist/bundle.js --jsx=automatic --loader:.ts=tsx && cp index.html dist/index.html && cp -r locales dist/locales && cp -r assets dist/assets"
+  },
+  "devDependencies": {
+    "esbuild": "^0.21.4"
+  }
+}

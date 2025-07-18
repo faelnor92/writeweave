@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WriteWeave - Éditeur de Romans IA</title>
+    <link rel="icon" href="/assets/writeweave.svg" type="image/svg+xml">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400;1,700&family=Inter:wght@400;500;600;700&family=Merriweather:ital,wght@0,400;0,700;1,400;1,700&family=Lora:ital,wght@0,400;0,700;1,400&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- ReactFlow CSS -->
+    <link rel="stylesheet" href="https://esm.sh/reactflow@11.11.4/dist/style.css" />
+
+    <!-- Configuration Tailwind -->
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: {
+                DEFAULT: 'hsl(243 90% 58%)',
+                light: 'hsl(243 90% 65%)',
+                dark: 'hsl(243 90% 50%)',
+              },
+              secondary: {
+                DEFAULT: 'hsl(215 14% 34%)',
+              },
+              background: {
+                light: 'hsl(210 40% 98%)',
+                dark: 'hsl(222 47% 11%)',
+              },
+              surface: {
+                light: 'hsl(0 0% 100%)',
+                dark: 'hsl(222 40% 15%)',
+              },
+              text: {
+                light: 'hsl(222 28% 18%)',
+                dark: 'hsl(210 40% 96%)',
+              },
+              muted: {
+                light: 'hsl(217 8% 57%)',
+                dark: 'hsl(215 16% 57%)',
+              }
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              serif: ['EB Garamond', 'serif'],
+              'courier': ['Courier Prime', 'monospace'],
+              'lora': ['Lora', 'serif'],
+            },
+            keyframes: {
+                'fade-in-right': {
+                    'from': { opacity: '0', transform: 'translateX(100%)' },
+                    'to': { opacity: '1', transform: 'translateX(0)' },
+                },
+                'fade-in-down': {
+                    'from': { opacity: '0', transform: 'translateY(-10px)' },
+                    'to': { opacity: '1', transform: 'translateY(0)' },
+                },
+                'pulse-lg': {
+                    '0%, 100%': { transform: 'scale(1)', opacity: '0.8' },
+                    '50%': { transform: 'scale(1.15)', opacity: '1' },
+                },
+            },
+            animation: {
+                'fade-in-right': 'fade-in-right 0.3s ease-out forwards',
+                'fade-in-down': 'fade-in-down 0.3s ease-in-out forwards',
+                'pulse-lg': 'pulse-lg 2.5s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+          },
+        },
+      }
+      
+      // Thème initial
+      try {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+          document.documentElement.classList.add('dark')
+        } else {
+          document.documentElement.classList.remove('dark')
+        }
+      } catch (e) {
+        console.warn('Erreur thème:', e);
+      }
+    </script>
+    
+    <!-- Import Map pour les modules -->
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@18.2.0",
+    "react/": "https://esm.sh/react@18.2.0/",
+    "react-dom": "https://esm.sh/react-dom@18.2.0",
+    "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+    "react-dom/": "https://esm.sh/react-dom@18.2.0/",
+    "@google/genai": "https://esm.sh/@google/genai@^1.8.0",
+    "mammoth": "https://esm.sh/mammoth@1.7.2",
+    "jspdf": "https://esm.sh/jspdf@2.5.1",
+    "html2canvas": "https://esm.sh/html2canvas@1.4.1",
+    "docx": "https://esm.sh/docx@8.5.0",
+    "uuid": "https://esm.sh/uuid@^9.0.1",
+    "file-saver": "https://esm.sh/file-saver@2.0.5",
+    "jszip": "https://esm.sh/jszip@3.10.1",
+    "reactflow": "https://esm.sh/reactflow@11.11.4",
+    "jsbarcode": "https://esm.sh/jsbarcode@^3.12.1",
+    "reactflow/": "https://esm.sh/reactflow@11.11.4/",
+    "jspdf-autotable": "https://esm.sh/jspdf-autotable@^5.0.2"
+  }
+}
+</script>
+    
+    <!-- Styles personnalisés -->
+    <style>
+      body {
+        background-color: hsl(210 40% 98%);
+        background-image: radial-gradient(hsl(210 40% 95%) 1px, transparent 1px);
+        background-size: 16px 16px;
+        min-height: 100vh;
+      }
+      .dark body {
+        background-color: hsl(222 47% 11%);
+        background-image: radial-gradient(hsl(222 40% 15%) 1px, transparent 1px);
+        background-size: 16px 16px;
+      }
+      
+      .writer-editor-content:focus {
+        outline: none;
+      }
+      .writer-editor-content p {
+        margin-bottom: 1.25em;
+      }
+      .writer-editor-content blockquote {
+        margin-left: 1rem;
+        padding-left: 1rem;
+        border-left: 3px solid #cbd5e1; /* gray-300 */
+        font-style: italic;
+        color: #64748b; /* slate-500 */
+      }
+      .dark .writer-editor-content blockquote {
+        border-left-color: #475569; /* slate-600 */
+        color: #94a3b8; /* slate-400 */
+      }
+      .writer-editor-content ul, .writer-editor-content ol {
+        margin-left: 1.5rem;
+        margin-bottom: 1.25em;
+      }
+      .writer-editor-content ul {
+        list-style-type: disc;
+      }
+      .writer-editor-content ol {
+        list-style-type: decimal;
+      }
+       .writer-editor-content li {
+        margin-bottom: 0.5em;
+      }
+
+      .repetition-highlight {
+        background-color: rgba(250, 204, 21, 0.4);
+        border-radius: 3px;
+        padding: 1px 0;
+      }
+      .dark .repetition-highlight {
+         background-color: rgba(250, 204, 21, 0.6);
+      }
+      .dialogue-highlight {
+        background-color: rgba(59, 130, 246, 0.2); /* blue-500 avec opacité */
+        border-radius: 3px;
+        padding: 1px 0;
+      }
+      .dark .dialogue-highlight {
+          background-color: rgba(59, 130, 246, 0.4);
+      }
+      
+      /* FIX: Prevent editor text decoration flickering */
+      .writer-editor-content u,
+      .writer-editor-content [style*="text-decoration: underline"] {
+        animation: none !important;
+        transition: none !important;
+      }
+
+      /* Focus Mode Styles */
+      .focus-hide-ui .hide-on-focus {
+        display: none !important;
+      }
+      .focus-center-text .writer-editor-container {
+        width: 100%;
+        max-width: 100%;
+      }
+       .focus-center-text .writer-editor-content {
+        margin: 0 auto !important;
+        max-width: 80ch !important;
+        padding: 4rem 2rem !important;
+        transition: all 0.3s ease-in-out;
+      }
+      
+      /* Style pour éviter l'écran noir initial */
+      #root {
+        min-height: 100vh;
+      }
+
+      /* Ambiance Themes */
+      .theme-typewriter .writer-editor-content {
+        font-family: 'Courier Prime', monospace !important;
+        background-color: #fdf6e3;
+        color: #1d1d1d; /* Contraste maximal */
+      }
+      .dark .theme-typewriter .writer-editor-content {
+        background-color: #2a2a2a;
+        color: #ccc;
+      }
+      .theme-fantasy .writer-editor-content {
+        font-family: 'Lora', serif !important;
+        background-color: #f3eadd;
+        color: #211a15; /* Contraste maximal */
+      }
+      .dark .theme-fantasy .writer-editor-content {
+        background-color: #3e3228;
+        color: #d1c4b0;
+      }
+      .theme-cyberpunk .writer-editor-content {
+        font-family: 'Courier Prime', monospace !important;
+        background-color: #0d0221;
+        color: #00f6ff;
+        text-shadow: 0 0 5px #00f6ff;
+      }
+      .dark .theme-cyberpunk .writer-editor-content {
+         background-color: #0a011a;
+         color: #00f6ff;
+      }
+      .theme-dark_academia .writer-editor-content {
+        font-family: 'Merriweather', serif !important;
+        background-color: #e8e4da;
+        color: #402f23;
+      }
+      .dark .theme-dark_academia .writer-editor-content {
+        background-color: #261f1b;
+        color: #dcd3c4;
+      }
+    </style>
+  <link rel="stylesheet" href="/index.css">
+</head>
+  <body class="text-text-light dark:text-text-dark antialiased">
+    <div id="root">
+      <div class="w-screen h-screen flex items-center justify-center bg-background-light dark:bg-background-dark">
+        <div class="text-center flex flex-col items-center gap-6">
+            <div class="text-indigo-500 animate-pulse-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-16 h-16">
+                <path d="M12 20.59a2 2 0 0 0 2-2V3.41a2 2 0 0 1 2-2h0a2 2 0 0 1 2 2v17.18a2 2 0 0 0 2 2h0"/>
+                <path d="M12 20.59a2 2 0 0 1-2-2V3.41a2 2 0 0 0-2-2h0a2 2 0 0 0-2 2v17.18a2 2 0 0 1-2 2h0"/>
+              </svg>
+            </div>
+            <div class="flex flex-col gap-2">
+                <h1 class="text-4xl font-bold text-gray-800 dark:text-gray-200 font-serif">WriteWeave</h1>
+                <p class="text-lg text-muted-light dark:text-muted-dark font-sans">Chargement de votre atelier d'écriture...</p>
+            </div>
+        </div>
+      </div>
+    </div>
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

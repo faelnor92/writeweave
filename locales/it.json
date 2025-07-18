@@ -1,0 +1,75 @@
+
+{
+  "app": {
+    "loading": "Caricamento del tuo laboratorio di scrittura...",
+    "errorTitle": "Errore di Caricamento",
+    "errorSubtitle": "Impossibile caricare il romanzo o il capitolo.",
+    "backToHome": "Torna alla Home"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "Dai vita alle tue storie.",
+    "createNewNovel": "Crea un nuovo romanzo",
+    "novelTitlePlaceholder": "Titolo del tuo romanzo...",
+    "createButton": "Crea",
+    "openExistingProject": "Apri un progetto esistente",
+    "deleteNovelTitle": "Conferma Eliminazione",
+    "deleteNovelConfirm": "Sei sicuro di voler eliminare definitivamente \"{title}\"? Questa azione è irreversibile.",
+    "cancel": "Annulla",
+    "delete": "Elimina"
+  },
+  "sidebar": {
+    "editor": "Editor",
+    "plan": "Trama",
+    "preview": "Anteprima",
+    "characters": "Personaggi",
+    "relationships": "Relazioni",
+    "places": "Luoghi",
+    "images": "Immagini",
+    "timeline": "Timeline",
+    "analytics": "Analisi",
+    "marketing": "Marketing",
+    "styleStudio": "Stile",
+    "tools": "Strumenti",
+    "publication": "Pubblica",
+    "settings": "Impostazioni",
+    "theme": "Tema",
+    "themeSwitch": "Passa alla modalità {theme}"
+  },
+  "publication": {
+    "title": "Pubblicazione ed Esportazione",
+    "subtitle": "Prepara il tuo manoscritto per l'esportazione e migliora la pertinenza dell'IA.",
+    "authorName": "Nome dell'autore",
+    "acknowledgements": "Ringraziamenti",
+    "genre": "Genere del Romanzo",
+    "era": "Epoca / Contesto",
+    "iaHelp": "Fornire un genere e un'epoca aiuterà l'IA a suggerire sinonimi più pertinenti.",
+    "isbn": "ISBN",
+    "editorName": "Nome dell'editore",
+    "editorAddress": "Indirizzo dell'editore",
+    "printerName": "Nome dello stampatore",
+    "printerAddress": "Indirizzo dello stampatore",
+    "legalDepositDate": "Data del deposito legale",
+    "legalNotice": "Note Legali",
+    "legalNoticeText": "Testo delle Note",
+    "generateWithAI": "Genera (IA)",
+    "adultContent": "Contenuto per Adulti",
+    "adultContentWarning": "Mostra un avviso di contenuto per adulti (18+)",
+    "warningText": "Testo dell'avviso",
+    "warningTextHelp": "Questo testo verrà aggiunto in una pagina dedicata all'inizio del tuo manoscritto esportato.",
+    "exportTitle": "Esporta il tuo Manoscritto",
+    "exportButton": "Esporta Manoscritto (.docx)"
+  },
+  "toast": {
+    "novelCreated": "Romanzo \"{title}\" creato!",
+    "novelDeleted": "Romanzo eliminato.",
+    "chapterAdded": "Nuovo capitolo aggiunto",
+    "chapterDeleted": "Capitolo eliminato con successo.",
+    "cantDeleteLastChapter": "Impossibile eliminare l'ultimo capitolo!",
+    "legalNoticeGenerated": "Note legali generate con successo!",
+    "exportSuccess": "Manoscritto esportato con successo!",
+    "exportError": "Errore di esportazione: {error}",
+    "aiError": "Errore IA: {error}",
+    "exporting": "Esportazione in corso..."
+  }
+}

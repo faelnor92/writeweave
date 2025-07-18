@@ -1,0 +1,76 @@
+
+{
+  "app": {
+    "loading": "Loading your writing workshop...",
+    "errorTitle": "Loading Error",
+    "errorSubtitle": "Could not load the novel or chapter.",
+    "backToHome": "Back to Home"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "Bring your stories to life.",
+    "createNewNovel": "Create a new novel",
+    "novelTitlePlaceholder": "Title of your novel...",
+    "createButton": "Create",
+    "openExistingProject": "Open an existing project",
+    "deleteNovelTitle": "Confirm Deletion",
+    "deleteNovelConfirm": "Are you sure you want to permanently delete \"{title}\"? This action is irreversible.",
+    "cancel": "Cancel",
+    "delete": "Delete"
+  },
+  "sidebar": {
+    "editor": "Editor",
+    "plan": "Outline",
+    "preview": "Preview",
+    "characters": "Chars",
+    "relationships": "Relations",
+    "places": "Places",
+    "images": "Images",
+    "timeline": "Timeline",
+    "analytics": "Analytics",
+    "marketing": "Marketing",
+    "styleStudio": "Style",
+    "tools": "Tools",
+    "publication": "Publish",
+    "settings": "Settings",
+    "theme": "Theme",
+    "themeSwitch": "Switch to {theme} mode"
+  },
+  "publication": {
+    "title": "Publication & Export",
+    "subtitle": "Prepare your manuscript for export and improve AI relevance.",
+    "authorName": "Author's Name",
+    "acknowledgements": "Acknowledgements",
+    "genre": "Novel Genre",
+    "era": "Era / Context",
+    "iaHelp": "Providing a genre and era will help the AI suggest more relevant synonyms.",
+    "isbn": "ISBN",
+    "editorName": "Publisher's Name",
+    "editorAddress": "Publisher's Address",
+    "printerName": "Printer's Name",
+    "printerAddress": "Printer's Address",
+    "legalDepositDate": "Legal Deposit Date",
+    "legalNotice": "Legal Notice",
+    "legalNoticeText": "Notice Text",
+    "generateWithAI": "Generate (AI)",
+    "adultContent": "Adult Content",
+    "adultContentWarning": "Display an adult content warning (18+)",
+    "warningText": "Warning Text",
+    "warningTextHelp": "This text will be added on a dedicated page at the beginning of your exported manuscript.",
+    "exportTitle": "Export your Manuscript",
+    "exportHelp": "The export will generate a professional .docx file including a title page, legal notice, your dedication, and standard formatting where each chapter begins on a new page.",
+    "exportButton": "Export Manuscript (.docx)"
+  },
+  "toast": {
+    "novelCreated": "Novel \"{title}\" created!",
+    "novelDeleted": "Novel deleted.",
+    "chapterAdded": "New chapter added",
+    "chapterDeleted": "Chapter successfully deleted.",
+    "cantDeleteLastChapter": "Cannot delete the last chapter!",
+    "legalNoticeGenerated": "Legal notice generated successfully!",
+    "exportSuccess": "Manuscript exported successfully!",
+    "exportError": "Export error: {error}",
+    "aiError": "AI Error: {error}",
+    "exporting": "Exporting in progress..."
+  }
+}

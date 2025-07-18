@@ -1,0 +1,75 @@
+
+{
+  "app": {
+    "loading": "正在加载您的写作工作坊...",
+    "errorTitle": "加载错误",
+    "errorSubtitle": "无法加载小说或章节。",
+    "backToHome": "返回首页"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "让您的故事栩栩如生。",
+    "createNewNovel": "创建新小说",
+    "novelTitlePlaceholder": "您的小说标题...",
+    "createButton": "创建",
+    "openExistingProject": "打开现有项目",
+    "deleteNovelTitle": "确认删除",
+    "deleteNovelConfirm": "您确定要永久删除 “{title}” 吗？此操作不可逆。",
+    "cancel": "取消",
+    "delete": "删除"
+  },
+  "sidebar": {
+    "editor": "编辑器",
+    "plan": "大纲",
+    "preview": "预览",
+    "characters": "角色",
+    "relationships": "关系",
+    "places": "地点",
+    "images": "图片",
+    "timeline": "时间线",
+    "analytics": "分析",
+    "marketing": "营销",
+    "styleStudio": "风格",
+    "tools": "工具",
+    "publication": "发布",
+    "settings": "设置",
+    "theme": "主题",
+    "themeSwitch": "切换到 {theme} 模式"
+  },
+  "publication": {
+    "title": "发布与导出",
+    "subtitle": "准备您的手稿以供导出并提高AI相关性。",
+    "authorName": "作者姓名",
+    "acknowledgements": "致谢",
+    "genre": "小说类型",
+    "era": "时代/背景",
+    "iaHelp": "提供类型和时代将帮助AI建议更相关的同义词。",
+    "isbn": "ISBN",
+    "editorName": "出版商名称",
+    "editorAddress": "出版商地址",
+    "printerName": "印刷商名称",
+    "printerAddress": "印刷商地址",
+    "legalDepositDate": "法定送存日期",
+    "legalNotice": "法律声明",
+    "legalNoticeText": "声明文本",
+    "generateWithAI": "生成 (AI)",
+    "adultContent": "成人内容",
+    "adultContentWarning": "显示成人内容警告 (18+)",
+    "warningText": "警告文本",
+    "warningTextHelp": "此文本将添加到您导出的手稿开头的专用页面上。",
+    "exportTitle": "导出您的手稿",
+    "exportButton": "导出稿件 (.docx)"
+  },
+  "toast": {
+    "novelCreated": "小说 “{title}” 已创建！",
+    "novelDeleted": "小说已删除。",
+    "chapterAdded": "新章节已添加",
+    "chapterDeleted": "章节已成功删除。",
+    "cantDeleteLastChapter": "无法删除最后一章！",
+    "legalNoticeGenerated": "法律声明已成功生成！",
+    "exportSuccess": "手稿已成功导出！",
+    "exportError": "导出错误：{error}",
+    "aiError": "AI 错误：{error}",
+    "exporting": "正在导出..."
+  }
+}

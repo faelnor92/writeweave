@@ -1,0 +1,75 @@
+
+{
+  "app": {
+    "loading": "ライティングワークショップを読み込んでいます...",
+    "errorTitle": "読み込みエラー",
+    "errorSubtitle": "小説または章を読み込めませんでした。",
+    "backToHome": "ホームに戻る"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "あなたの物語に命を吹き込みましょう。",
+    "createNewNovel": "新しい小説を作成",
+    "novelTitlePlaceholder": "小説のタイトル...",
+    "createButton": "作成",
+    "openExistingProject": "既存のプロジェクトを開く",
+    "deleteNovelTitle": "削除の確認",
+    "deleteNovelConfirm": "本当に「{title}」を完全に削除しますか？この操作は元に戻せません。",
+    "cancel": "キャンセル",
+    "delete": "削除"
+  },
+  "sidebar": {
+    "editor": "エディタ",
+    "plan": "構成",
+    "preview": "プレビュー",
+    "characters": "人物",
+    "relationships": "関係",
+    "places": "場所",
+    "images": "画像",
+    "timeline": "時系列",
+    "analytics": "分析",
+    "marketing": "マーケティング",
+    "styleStudio": "スタイル",
+    "tools": "ツール",
+    "publication": "公開",
+    "settings": "設定",
+    "theme": "テーマ",
+    "themeSwitch": "{theme}モードに切り替え"
+  },
+  "publication": {
+    "title": "公開とエクスポート",
+    "subtitle": "原稿をエクスポート用に準備し、AIの関連性を向上させます。",
+    "authorName": "著者名",
+    "acknowledgements": "謝辞",
+    "genre": "小説のジャンル",
+    "era": "時代/背景",
+    "iaHelp": "ジャンルと時代を提供すると、AIがより関連性の高い同義語を提案するのに役立ちます。",
+    "isbn": "ISBN",
+    "editorName": "出版社名",
+    "editorAddress": "出版社住所",
+    "printerName": "印刷所名",
+    "printerAddress": "印刷所住所",
+    "legalDepositDate": "法定納本年月日",
+    "legalNotice": "法的通知",
+    "legalNoticeText": "通知テキスト",
+    "generateWithAI": "生成 (AI)",
+    "adultContent": "成人向けコンテンツ",
+    "adultContentWarning": "成人向けコンテンツの警告を表示 (18+)",
+    "warningText": "警告テキスト",
+    "warningTextHelp": "このテキストは、エクスポートされた原稿の冒頭にある専用ページに追加されます。",
+    "exportTitle": "原稿をエクスポート",
+    "exportButton": "原稿をエクスポート (.docx)"
+  },
+  "toast": {
+    "novelCreated": "小説「{title}」が作成されました！",
+    "novelDeleted": "小説が削除されました。",
+    "chapterAdded": "新しい章が追加されました",
+    "chapterDeleted": "章が正常に削除されました。",
+    "cantDeleteLastChapter": "最後の章は削除できません！",
+    "legalNoticeGenerated": "法的通知が正常に生成されました！",
+    "exportSuccess": "原稿が正常にエクスポートされました！",
+    "exportError": "エクスポートエラー: {error}",
+    "aiError": "AIエラー: {error}",
+    "exporting": "エクスポート中..."
+  }
+}

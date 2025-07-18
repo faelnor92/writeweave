@@ -1,0 +1,76 @@
+
+{
+  "app": {
+    "loading": "Chargement de votre atelier d'écriture...",
+    "errorTitle": "Erreur de chargement",
+    "errorSubtitle": "Impossible de charger le roman ou le chapitre.",
+    "backToHome": "Retour à l'accueil"
+  },
+  "home": {
+    "title": "WriteWeave",
+    "subtitle": "Donnez vie à vos histoires.",
+    "createNewNovel": "Créer un nouveau roman",
+    "novelTitlePlaceholder": "Titre de votre roman...",
+    "createButton": "Créer",
+    "openExistingProject": "Ouvrir un projet existant",
+    "deleteNovelTitle": "Confirmer la suppression",
+    "deleteNovelConfirm": "Êtes-vous sûr de vouloir supprimer définitivement \"{title}\" ? Cette action est irréversible.",
+    "cancel": "Annuler",
+    "delete": "Supprimer"
+  },
+  "sidebar": {
+    "editor": "Éditeur",
+    "plan": "Plan",
+    "preview": "Aperçu",
+    "characters": "Persos",
+    "relationships": "Relations",
+    "places": "Lieux",
+    "images": "Images",
+    "timeline": "Timeline",
+    "analytics": "Analyse",
+    "marketing": "Marketing",
+    "styleStudio": "Style",
+    "tools": "Outils",
+    "publication": "Publier",
+    "settings": "Réglages",
+    "theme": "Thème",
+    "themeSwitch": "Passer en mode {theme}"
+  },
+  "publication": {
+    "title": "Publication & Exportation",
+    "subtitle": "Préparez votre manuscrit pour l'exportation et améliorez la pertinence de l'IA.",
+    "authorName": "Nom de l'auteur",
+    "acknowledgements": "Remerciements",
+    "genre": "Genre du roman",
+    "era": "Époque / Contexte",
+    "iaHelp": "Fournir un genre et une époque aidera l'IA à suggérer des synonymes plus pertinents.",
+    "isbn": "ISBN",
+    "editorName": "Nom de l'éditeur",
+    "editorAddress": "Adresse de l'éditeur",
+    "printerName": "Nom de l'imprimeur",
+    "printerAddress": "Adresse de l'imprimeur",
+    "legalDepositDate": "Date du dépôt légal",
+    "legalNotice": "Mentions Légales",
+    "legalNoticeText": "Texte des mentions",
+    "generateWithAI": "Générer (IA)",
+    "adultContent": "Contenu pour Adultes",
+    "adultContentWarning": "Afficher un avertissement de contenu pour adultes (-18)",
+    "warningText": "Texte de l'avertissement",
+    "warningTextHelp": "Ce texte sera ajouté sur une page dédiée au début de votre manuscrit exporté.",
+    "exportTitle": "Exporter votre Manuscrit",
+    "exportHelp": "L'exportation générera un fichier .docx professionnel incluant une page de titre, les mentions légales, votre dédicace et une mise en page standard où chaque chapitre commence sur une nouvelle page.",
+    "exportButton": "Exporter le Manuscrit (.docx)"
+  },
+  "toast": {
+    "novelCreated": "Roman \"{title}\" créé !",
+    "novelDeleted": "Roman supprimé.",
+    "chapterAdded": "Nouveau chapitre ajouté",
+    "chapterDeleted": "Chapitre supprimé avec succès.",
+    "cantDeleteLastChapter": "Impossible de supprimer le dernier chapitre !",
+    "legalNoticeGenerated": "Mentions légales générées avec succès !",
+    "exportSuccess": "Manuscrit exporté avec succès !",
+    "exportError": "Erreur d'exportation: {error}",
+    "aiError": "Erreur IA: {error}",
+    "exporting": "Exportation en cours..."
+  }
+}
