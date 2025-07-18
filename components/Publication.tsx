@@ -1,4 +1,3 @@
-
 // components/Publication.tsx
 import React, { useState, useCallback } from 'react';
 import type { Novel, PublicationData, LegalNoticeData } from '../types.ts';
@@ -21,13 +20,13 @@ interface InputFieldProps {
 
 const InputField: React.FC<InputFieldProps> = React.memo(({ label, name, value, placeholder, onChange }) => (
     <div>
-        <label htmlFor={name} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+        <label htmlFor={name as string} className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
             {label}
         </label>
         <input
             type="text"
-            id={name}
-            name={name}
+            id={name as string}
+            name={name as string}
             value={value || ''}
             onChange={(e) => onChange(name, e.target.value)}
             placeholder={placeholder}

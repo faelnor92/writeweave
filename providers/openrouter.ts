@@ -58,7 +58,7 @@ export const proofreadText = async (apiKey: string, model: string, text: string,
     const systemInstruction = `You are an expert proofreader. Respond with a JSON object with two keys: "correctedText" (the corrected HTML) and "explanations" (a brief list of changes as an HTML string). ${instruction}`;
     const userPrompt = `Correct the following HTML text, preserving the markup. List the changes made. Text: ${text}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return result || { correctedText: text, explanations: "Error processing proofreading." };
 };
 
@@ -68,7 +68,7 @@ export const getSynonyms = async (apiKey: string, model: string, word: string, l
     if(genre || era) systemInstruction += `\nThe context is a "${genre}" novel set in the "${era}" era.`
     const userPrompt = `Word: "${word}" in ${localName}.`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return result?.synonyms || [];
 };
 
@@ -77,7 +77,7 @@ export const findRepetitions = async (apiKey: string, model: string, text: strin
     const systemInstruction = `You are a text analyst. Identify the 10 most significant repeated phrases (2-5 words). Respond in a JSON object: {"repetitions": [...]}. ${instruction}`;
     const userPrompt = `Text to analyze: ${text}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return result?.repetitions || [];
 };
 
@@ -86,7 +86,7 @@ export const generateCharacterDetails = async (apiKey: string, model: string, na
     const systemInstruction = `You are a creative writer. Generate descriptions for a character. Respond in JSON. ${instruction}`;
     const userPrompt = `Generate descriptions for a character named "${name}" in ${localName}. Keys: "physicalAppearance", "psychology", "history", "motivations".`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const generatePlaceDetails = async (apiKey: string, model: string, name: string, lang: string): Promise<Partial<Place>> => {
@@ -94,7 +94,7 @@ export const generatePlaceDetails = async (apiKey: string, model: string, name: 
     const systemInstruction = `You are a world-building assistant. Generate descriptions for a location. Respond in JSON. ${instruction}`;
     const userPrompt = `Generate descriptions for a location named "${name}" in ${localName}. Keys: "appearance", "atmosphere", "history".`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const extractCharactersAndPlaces = async (apiKey: string, model: string, novelText: string, lang: string): Promise<{ characters: { name: string, description: string }[], places: { name: string, description: string }[] }> => {
@@ -102,7 +102,7 @@ export const extractCharactersAndPlaces = async (apiKey: string, model: string, 
     const systemInstruction = `You are a text analyst. Extract all named characters and places. Respond in JSON: {"characters": [{"name": "...", "description": "..."}], "places": [...]}. ${instruction}`;
     const userPrompt = `Analyze the text in ${localName} and extract entities. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const generatePlanFromText = async (apiKey: string, model: string, novelText: string, lang: string): Promise<PlanSection[]> => {
@@ -110,7 +110,7 @@ export const generatePlanFromText = async (apiKey: string, model: string, novelT
     const systemInstruction = `You are a story structure analyst. Generate a three-act outline. Respond with a JSON array of objects (keys: "title", "content"). ${instruction}`;
     const userPrompt = `Analyze this text and generate an outline in ${localName}. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return Array.isArray(result) ? result.map((item: any) => ({ id: uuidv4(), ...item })) : [];
 };
 
@@ -119,7 +119,7 @@ export const generateTimeline = async (apiKey: string, model: string, novelText:
     const systemInstruction = `You are a story analyst. Create a timeline of key events. Respond with a JSON array of objects (keys: "title", "description", "date", "characters", "places", "type", "importance"). ${instruction}`;
     const userPrompt = `Analyze the novel text in ${localName} and generate a timeline. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return Array.isArray(result) ? result.map((item: any) => ({ id: uuidv4(), ...item })) : [];
 };
 
@@ -129,7 +129,7 @@ export const generateRelationships = async (apiKey: string, model: string, novel
     const systemInstruction = `You are an expert in character dynamics. Identify relationships. Respond in a JSON array. ${instruction}`;
     const userPrompt = `Analyze the relationships between these characters in ${localName}: ${characters.map(c => c.name).join(', ')}. Novel text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     const characterMap = new Map(characters.map(c => [c.name.toLowerCase(), c.id]));
     return Array.isArray(result) ? result.map((item: any) => ({
         id: uuidv4(),
@@ -152,7 +152,7 @@ export const generateMarketingContent = async (apiKey: string, model: string, no
     const systemInstruction = `You are a book marketing expert. Generate a full marketing kit. Respond in JSON. ${instruction}`;
     const userPrompt = `Generate a complete marketing content kit in ${localName} for the following novel. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const generateTargetAudience = async (apiKey: string, model: string, novelText: string, lang: string): Promise<MarketingAudiencePersona[]> => {
@@ -160,7 +160,7 @@ export const generateTargetAudience = async (apiKey: string, model: string, nove
     const systemInstruction = `You are a marketing strategist. Generate target audience personas. Respond with a JSON array. ${instruction}`;
     const userPrompt = `Analyze the novel summary in ${localName} and generate 2-3 personas. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 
@@ -169,7 +169,7 @@ export const generateAlternativeTitles = async (apiKey: string, model: string, n
     const systemInstruction = `You are a creative titling expert. Propose 5 alternative titles. Respond with a JSON array. ${instruction}`;
     const userPrompt = `Propose titles in ${localName} for this novel. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const analyzeKeywords = async (apiKey: string, model: string, novelText: string, lang: string): Promise<SeoKeyword[]> => {
@@ -177,7 +177,7 @@ export const analyzeKeywords = async (apiKey: string, model: string, novelText: 
     const systemInstruction = `You are an SEO specialist. Generate 10 SEO keywords. Respond with a JSON array. ${instruction}`;
     const userPrompt = `Analyze this text and generate SEO keywords in ${localName}. Text: ${novelText}`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const generateNames = async (apiKey: string, model: string, criteria: string, lang: string, culture?: string, era?: string): Promise<string[]> => {
@@ -185,7 +185,7 @@ export const generateNames = async (apiKey: string, model: string, criteria: str
     const systemInstruction = `You are a name generator. Provide 10 names. Respond with a JSON object: {"names": [...]}. ${instruction}`;
     const userPrompt = `Criteria: "${criteria}" in ${localName}. Culture: ${culture || 'any'}. Era: ${era || 'any'}.`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return result?.names || [];
 };
 
@@ -212,7 +212,7 @@ export const analyzeWritingContext = async (apiKey: string, model: string, text:
     const systemInstruction = `You are a literary analyst. Determine POV and emotion. Respond in JSON: {"pov": "...", "emotion": "..."}. ${instruction}`;
     const userPrompt = `Analyze this paragraph in ${localName}: "${text}"`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    return callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    return callOpenRouterSafe(apiKey, model, messages, {}, true);
 };
 
 export const getContextualSuggestions = async (apiKey: string, model: string, context: string, pov: string, emotion: string, lang: string): Promise<string[]> => {
@@ -220,7 +220,7 @@ export const getContextualSuggestions = async (apiKey: string, model: string, co
     const systemInstruction = `You are a creative partner. Propose 3 story continuations. Respond in JSON: {"suggestions": [...]}. ${instruction}`;
     const userPrompt = `Context (POV: ${pov}, Emotion: ${emotion}) in ${localName}: "${context}"`;
     const messages = constructMessages(systemInstruction, userPrompt);
-    const result = await callOpenRouterSafe(apiKey, model, messages, { response_format: { type: 'json_object' } });
+    const result = await callOpenRouterSafe(apiKey, model, messages, {}, true);
     return result?.suggestions || [];
 };
 

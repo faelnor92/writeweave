@@ -1,4 +1,3 @@
-
 // components/Sidebar.tsx
 import React from 'react';
 import type { View } from '../types.ts';
@@ -19,6 +18,7 @@ import TimelineIcon from './icons/TimelineIcon.tsx';
 import UsersRoundIcon from './icons/UsersRoundIcon.tsx';
 import ClipboardListIcon from './icons/ClipboardListIcon.tsx';
 import PaintbrushIcon from './icons/PaintbrushIcon.tsx';
+import LayoutDashboardIcon from './icons/LayoutDashboardIcon.tsx';
 import { useI18n } from '../hooks/useI18n.ts';
 
 
@@ -75,6 +75,7 @@ const Sidebar: React.FC<SidebarProps> = ({ activeView, setActiveView, goHome, th
 
   const advancedTools = [
     { id: 'analytics', label: t('sidebar.analytics'), icon: <BarChart2Icon /> },
+    { id: 'analysisDashboard', label: 'Dashboard', icon: <LayoutDashboardIcon /> },
     { id: 'marketing', label: t('sidebar.marketing'), icon: <TargetIcon /> },
     { id: 'styleStudio', label: t('sidebar.styleStudio'), icon: <PaintbrushIcon /> },
     { id: 'tools', label: t('sidebar.tools'), icon: <WrenchIcon /> },

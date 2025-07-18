@@ -31,10 +31,27 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({ novel, lang }) => {
   };
 
   // Fonction utilitaire pour valider les données d'analyse
-  const validateAnalysisData = (data: any[]): AnalyzedBeat[] => {
-    if (!Array.isArray(data)) return [];
+  const validateAnalysisData = (data: any): AnalyzedBeat[] => {
+    let potentialArray: any[] | undefined;
+
+    if (Array.isArray(data)) {
+      potentialArray = data;
+    } else if (data && typeof data === 'object') {
+      // Chercher un tableau imbriqué
+      const nestedArray = Object.values(data).find(val => Array.isArray(val));
+      if (nestedArray) {
+        potentialArray = nestedArray as any[];
+      } else if (data.title && typeof data.tension !== 'undefined') {
+        // C'est un objet unique, non enveloppé dans un tableau
+        potentialArray = [data];
+      }
+    }
+
+    if (!potentialArray) {
+      return []; // Aucune structure de type tableau valide trouvée
+    }
     
-    return data.map((item, index) => ({
+    return potentialArray.map((item, index) => ({
       title: sanitizeTitle(item?.title || `Beat ${index + 1}`),
       tension: typeof item?.tension === 'number' ? Math.max(1, Math.min(10, item.tension)) : 5,
       emotion: typeof item?.emotion === 'string' ? item.emotion : 'Neutre'
@@ -51,7 +68,7 @@ const AnalyticsHub: React.FC<AnalyticsHubProps> = ({ novel, lang }) => {
       const validatedResult = validateAnalysisData(rawResult);
       
       if (validatedResult.length === 0) {
-        throw new Error('Aucune donnée d\'analyse valide reçue');
+        throw new Error('Aucune donnée d\'analyse valide reçue de l\'IA.');
       }
       
       setAnalysis(validatedResult);
