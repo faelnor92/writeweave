@@ -112,6 +112,21 @@ class Toolbar(QWidget):
         btn_align_justify.clicked.connect(lambda: self.format_requested.emit("align_justify", None))
         layout.addWidget(btn_align_justify)
 
+        layout.addSpacing(20)
+
+        # Listes
+        btn_bullet_list = QToolButton()
+        btn_bullet_list.setText("• ")
+        btn_bullet_list.setToolTip("Liste à puces")
+        btn_bullet_list.clicked.connect(lambda: self.format_requested.emit("bullet_list", None))
+        layout.addWidget(btn_bullet_list)
+
+        btn_number_list = QToolButton()
+        btn_number_list.setText("1.")
+        btn_number_list.setToolTip("Liste numérotée")
+        btn_number_list.clicked.connect(lambda: self.format_requested.emit("number_list", None))
+        layout.addWidget(btn_number_list)
+
         layout.addStretch()
 
         # === Actions IA ===
@@ -132,6 +147,21 @@ class Toolbar(QWidget):
         btn_proofread.setToolTip("Corriger le texte avec l'IA")
         btn_proofread.clicked.connect(lambda: self.ai_action_requested.emit("proofread"))
         layout.addWidget(btn_proofread)
+
+        btn_synonyms = QPushButton("📖 Synonymes")
+        btn_synonyms.setToolTip("Suggérer des synonymes")
+        btn_synonyms.clicked.connect(lambda: self.ai_action_requested.emit("synonyms"))
+        layout.addWidget(btn_synonyms)
+
+        btn_summarize = QPushButton("📝 Résumer")
+        btn_summarize.setToolTip("Résumer le texte sélectionné")
+        btn_summarize.clicked.connect(lambda: self.ai_action_requested.emit("summarize"))
+        layout.addWidget(btn_summarize)
+
+        btn_rephrase = QPushButton("🔄 Reformuler")
+        btn_rephrase.setToolTip("Reformuler le texte différemment")
+        btn_rephrase.clicked.connect(lambda: self.ai_action_requested.emit("rephrase"))
+        layout.addWidget(btn_rephrase)
 
         # Style
         self.setStyleSheet("""

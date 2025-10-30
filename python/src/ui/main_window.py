@@ -5,7 +5,7 @@ Fenêtre principale de l'application WriteWeave
 import logging
 from PyQt6.QtWidgets import (
     QWidget, QVBoxLayout, QHBoxLayout, QSplitter,
-    QMenuBar, QMenu, QToolBar, QStatusBar, QMessageBox
+    QMenuBar, QMenu, QToolBar, QStatusBar, QMessageBox, QLabel
 )
 from PyQt6.QtCore import Qt, pyqtSignal
 from PyQt6.QtGui import QAction, QKeySequence
@@ -76,9 +76,22 @@ class MainWindow(QWidget):
 
         main_layout.addWidget(self.splitter)
 
-        # Barre de statut (optionnel)
-        # self.status_bar = QStatusBar()
-        # main_layout.addWidget(self.status_bar)
+        # Barre de statut avec statistiques
+        self.status_bar = QStatusBar()
+        self.status_bar.setStyleSheet("""
+            QStatusBar {
+                background-color: #f0f0f0;
+                border-top: 1px solid #cccccc;
+                padding: 5px;
+            }
+        """)
+
+        # Labels pour les statistiques
+        self.stats_label = QLabel("Mots : 0  |  Caractères : 0  |  Pages : 0  |  Temps lecture : 0 min")
+        self.stats_label.setStyleSheet("padding: 0 10px;")
+        self.status_bar.addPermanentWidget(self.stats_label)
+
+        main_layout.addWidget(self.status_bar)
 
     def _connect_signals(self):
         """Connecte les signaux et slots"""
@@ -194,6 +207,26 @@ class MainWindow(QWidget):
     def on_content_changed(self):
         """Appelé quand le contenu de l'éditeur change"""
         self._unsaved_changes = True
+        self.update_statistics()
+
+    def update_statistics(self):
+        """Met à jour les statistiques dans la barre de statut"""
+        # Récupérer le texte brut
+        text = self.editor.get_plain_text()
+
+        # Calculer les statistiques
+        char_count = len(text)
+        word_count = len(text.split()) if text.strip() else 0
+
+        # Estimation pages (250 mots par page)
+        page_count = max(1, word_count // 250)
+
+        # Temps de lecture (200 mots par minute)
+        reading_time = max(1, word_count // 200)
+
+        # Mettre à jour l'affichage
+        stats_text = f"Mots : {word_count:,}  |  Caractères : {char_count:,}  |  Pages : ~{page_count}  |  Lecture : ~{reading_time} min"
+        self.stats_label.setText(stats_text)
 
     def save_current_chapter(self):
         """Sauvegarde le chapitre actuel"""

@@ -134,6 +134,30 @@ class Editor(QTextEdit):
         elif format_type == "align_justify":
             self.setAlignment(Qt.AlignmentFlag.AlignJustify)
 
+        elif format_type == "bullet_list":
+            text_list = cursor.currentList()
+            if text_list:
+                # Supprimer la liste
+                cursor.currentList().remove(cursor.block())
+            else:
+                # Créer une liste à puces
+                from PyQt6.QtGui import QTextListFormat
+                list_format = QTextListFormat()
+                list_format.setStyle(QTextListFormat.Style.ListDisc)
+                cursor.createList(list_format)
+
+        elif format_type == "number_list":
+            text_list = cursor.currentList()
+            if text_list:
+                # Supprimer la liste
+                cursor.currentList().remove(cursor.block())
+            else:
+                # Créer une liste numérotée
+                from PyQt6.QtGui import QTextListFormat
+                list_format = QTextListFormat()
+                list_format.setStyle(QTextListFormat.Style.ListDecimal)
+                cursor.createList(list_format)
+
         else:
             logger.warning(f"Format non reconnu : {format_type}")
 
@@ -184,6 +208,44 @@ class Editor(QTextEdit):
                     self.setPlainText(corrected)
             except Exception as e:
                 logger.error(f"Erreur correction IA : {e}")
+
+        elif action == "synonyms":
+            # Suggérer des synonymes pour le mot/texte sélectionné
+            if cursor.hasSelection():
+                selected_text = cursor.selectedText()
+                logger.info(f"Recherche de synonymes pour : {selected_text}")
+
+                try:
+                    synonyms = self.ai_service.get_synonyms(selected_text)
+                    # Afficher les synonymes (pour l'instant, remplacer par le premier)
+                    # TODO: Créer une fenêtre popup pour choisir
+                    cursor.insertText(synonyms)
+                except Exception as e:
+                    logger.error(f"Erreur synonymes IA : {e}")
+
+        elif action == "summarize":
+            # Résumer le texte sélectionné
+            text = cursor.selectedText() if cursor.hasSelection() else self.get_plain_text()
+            logger.info(f"Résumé du texte : {len(text)} caractères")
+
+            try:
+                summary = self.ai_service.summarize_text(text)
+                # Insérer le résumé à la fin
+                self.append("\n\n--- Résumé ---\n" + summary)
+            except Exception as e:
+                logger.error(f"Erreur résumé IA : {e}")
+
+        elif action == "rephrase":
+            # Reformuler le texte sélectionné
+            if cursor.hasSelection():
+                selected_text = cursor.selectedText()
+                logger.info(f"Reformulation du texte : {len(selected_text)} caractères")
+
+                try:
+                    rephrased = self.ai_service.rephrase_text(selected_text)
+                    cursor.insertText(rephrased)
+                except Exception as e:
+                    logger.error(f"Erreur reformulation IA : {e}")
 
         else:
             logger.warning(f"Action IA non reconnue : {action}")

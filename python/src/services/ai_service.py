@@ -147,6 +147,72 @@ Retourne uniquement le texte corrigé, sans commentaire."""
         result = self._generate(prompt, system)
         return result if result else text
 
+    def get_synonyms(self, text: str) -> str:
+        """
+        Suggère des synonymes pour un mot ou expression
+
+        Args:
+            text: Le mot ou texte pour lequel trouver des synonymes
+
+        Returns:
+            Des suggestions de synonymes
+        """
+        logger.info(f"Recherche de synonymes pour : {text}")
+
+        system = """Tu es un assistant linguistique expert.
+Propose des synonymes adaptés au contexte littéraire.
+Retourne 3-5 alternatives séparées par des virgules.
+Ne donne que les mots, sans explication."""
+
+        prompt = f"Donne des synonymes pour : {text}"
+
+        result = self._generate(prompt, system)
+        return result if result else text
+
+    def summarize_text(self, text: str) -> str:
+        """
+        Résume un texte
+
+        Args:
+            text: Le texte à résumer
+
+        Returns:
+            Un résumé concis
+        """
+        logger.info(f"Résumé de {len(text)} caractères")
+
+        system = """Tu es un assistant spécialisé dans les résumés.
+Crée un résumé concis et clair du texte fourni.
+Garde les points clés et l'essence du texte.
+Maximum 3-4 phrases."""
+
+        prompt = f"Résume ce texte :\n\n{text}"
+
+        result = self._generate(prompt, system)
+        return result if result else text
+
+    def rephrase_text(self, text: str) -> str:
+        """
+        Reformule un texte différemment
+
+        Args:
+            text: Le texte à reformuler
+
+        Returns:
+            Le texte reformulé
+        """
+        logger.info(f"Reformulation de {len(text)} caractères")
+
+        system = """Tu es un assistant d'écriture créative.
+Reformule le texte fourni en utilisant des mots et structures différents.
+Garde le même sens et la même intention.
+Retourne uniquement le texte reformulé, sans commentaire."""
+
+        prompt = f"Reformule ce texte différemment :\n\n{text}"
+
+        result = self._generate(prompt, system)
+        return result if result else text
+
     def generate_character(self, name: str) -> dict:
         """Génère les détails d'un personnage"""
         logger.info(f"Génération du personnage : {name}")
