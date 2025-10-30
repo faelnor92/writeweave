@@ -14,6 +14,7 @@ from ui.editor import Editor
 from ui.sidebar import Sidebar
 from ui.toolbar import Toolbar
 from ui.search_dialog import SearchDialog
+from ui.right_panel import RightPanel
 from utils import themes
 
 logger = logging.getLogger(__name__)
@@ -77,8 +78,15 @@ class MainWindow(QWidget):
         )
         self.splitter.addWidget(self.editor)
 
-        # Proportions du splitter (20% sidebar, 80% editor)
-        self.splitter.setSizes([250, 950])
+        # Panel droit (personnages, lieux, analytics)
+        self.right_panel = RightPanel(
+            storage_service=self.storage_service,
+            parent=self
+        )
+        self.splitter.addWidget(self.right_panel)
+
+        # Proportions du splitter (20% sidebar, 60% editor, 20% panel droit)
+        self.splitter.setSizes([250, 750, 250])
 
         main_layout.addWidget(self.splitter)
 
@@ -144,6 +152,10 @@ class MainWindow(QWidget):
             self.current_chapter = None
             self.editor.set_content("")
 
+        # Mettre à jour le panel droit
+        self.right_panel.set_current_novel(self.current_novel)
+        self.update_analytics()
+
         self._unsaved_changes = False
         self.novel_changed.emit()
 
@@ -164,6 +176,7 @@ class MainWindow(QWidget):
                 self.current_chapter = chapter
                 self.editor.set_content(chapter.content)
                 self._unsaved_changes = False
+                self.update_analytics()
                 self.chapter_changed.emit()
                 break
 
@@ -243,6 +256,19 @@ class MainWindow(QWidget):
         # Mettre à jour l'affichage
         stats_text = f"Mots : {word_count:,}  |  Caractères : {char_count:,}  |  Pages : ~{page_count}  |  Lecture : ~{reading_time} min"
         self.stats_label.setText(stats_text)
+
+        # Mettre à jour les analytics
+        self.update_analytics()
+
+    def update_analytics(self):
+        """Met à jour le panel analytics"""
+        if not hasattr(self, 'right_panel'):
+            return
+
+        text = self.editor.get_plain_text()
+        chapter_title = self.current_chapter.title if self.current_chapter else None
+
+        self.right_panel.update_analytics(text, chapter_title)
 
     def _setup_shortcuts(self):
         """Configure les raccourcis clavier"""

@@ -15,7 +15,12 @@ class Character:
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     name: str = ""
 
-    # Description
+    # Informations de base
+    description: str = ""
+    role: str = ""
+    notes: str = ""
+
+    # Description détaillée (optionnel)
     physical_appearance: str = ""
     psychology: str = ""
     history: str = ""
@@ -30,6 +35,9 @@ class Character:
         return {
             'id': self.id,
             'name': self.name,
+            'description': self.description,
+            'role': self.role,
+            'notes': self.notes,
             'physical_appearance': self.physical_appearance,
             'psychology': self.psychology,
             'history': self.history,
@@ -44,6 +52,9 @@ class Character:
         return cls(
             id=data.get('id', str(uuid.uuid4())),
             name=data.get('name', ''),
+            description=data.get('description', ''),
+            role=data.get('role', ''),
+            notes=data.get('notes', ''),
             physical_appearance=data.get('physical_appearance', ''),
             psychology=data.get('psychology', ''),
             history=data.get('history', ''),

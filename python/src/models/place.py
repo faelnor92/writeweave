@@ -15,7 +15,12 @@ class Place:
     id: str = field(default_factory=lambda: str(uuid.uuid4()))
     name: str = ""
 
-    # Description
+    # Informations de base
+    description: str = ""
+    type: str = ""
+    notes: str = ""
+
+    # Description détaillée (optionnel)
     appearance: str = ""
     atmosphere: str = ""
     history: str = ""
@@ -29,6 +34,9 @@ class Place:
         return {
             'id': self.id,
             'name': self.name,
+            'description': self.description,
+            'type': self.type,
+            'notes': self.notes,
             'appearance': self.appearance,
             'atmosphere': self.atmosphere,
             'history': self.history,
@@ -42,6 +50,9 @@ class Place:
         return cls(
             id=data.get('id', str(uuid.uuid4())),
             name=data.get('name', ''),
+            description=data.get('description', ''),
+            type=data.get('type', ''),
+            notes=data.get('notes', ''),
             appearance=data.get('appearance', ''),
             atmosphere=data.get('atmosphere', ''),
             history=data.get('history', ''),
