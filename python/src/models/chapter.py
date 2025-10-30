@@ -17,6 +17,9 @@ class Chapter:
     content: str = ""  # HTML content
     notes: str = ""  # Notes personnelles sur le chapitre
 
+    # Versions / Snapshots
+    snapshots: list = field(default_factory=list)  # Liste d'IDs de snapshots
+
     # Métadonnées
     created_at: str = ""
     updated_at: str = ""
@@ -28,6 +31,7 @@ class Chapter:
             'title': self.title,
             'content': self.content,
             'notes': self.notes,
+            'snapshots': self.snapshots,
             'created_at': self.created_at,
             'updated_at': self.updated_at
         }
@@ -40,6 +44,7 @@ class Chapter:
             title=data.get('title', 'Nouveau Chapitre'),
             content=data.get('content', ''),
             notes=data.get('notes', ''),
+            snapshots=data.get('snapshots', []),
             created_at=data.get('created_at', ''),
             updated_at=data.get('updated_at', '')
         )

@@ -16,6 +16,7 @@ from ui.toolbar import Toolbar
 from ui.search_dialog import SearchDialog
 from ui.right_panel import RightPanel
 from ui.export_dialog import ExportDialog
+from ui.versions_dialog import VersionsDialog
 from services.export_service import ExportService
 from utils import themes
 
@@ -129,6 +130,7 @@ class MainWindow(QWidget):
         self.toolbar.ai_action_requested.connect(self.editor.handle_ai_action)
         self.toolbar.theme_change_requested.connect(self.on_theme_change)
         self.toolbar.export_requested.connect(self.show_export_dialog)
+        self.toolbar.versions_requested.connect(self.show_versions_dialog)
 
         # Appliquer le thème sauvegardé
         from PyQt6.QtCore import QSettings
@@ -364,6 +366,44 @@ class MainWindow(QWidget):
             parent=self
         )
         dialog.exec()
+
+    def show_versions_dialog(self):
+        """Affiche le dialog de gestion des versions"""
+        if not self.current_novel:
+            QMessageBox.warning(
+                self,
+                "Aucun roman sélectionné",
+                "Veuillez d'abord sélectionner un roman."
+            )
+            return
+
+        if not self.current_chapter:
+            QMessageBox.warning(
+                self,
+                "Aucun chapitre sélectionné",
+                "Veuillez d'abord sélectionner un chapitre."
+            )
+            return
+
+        # Sauvegarder le chapitre actuel avant d'ouvrir les versions
+        if self._unsaved_changes:
+            self.save_current_chapter()
+
+        # Ouvrir le dialog
+        dialog = VersionsDialog(
+            novel_id=self.current_novel.id,
+            chapter=self.current_chapter,
+            storage_service=self.storage_service,
+            parent=self
+        )
+
+        if dialog.exec():
+            # Si une version a été restaurée, recharger le contenu
+            restored_content = dialog.get_restored_content()
+            if restored_content is not None:
+                self.editor.set_content(restored_content)
+                self._unsaved_changes = False
+                logger.info("Contenu restauré depuis une version")
 
     def save_current_chapter(self):
         """Sauvegarde le chapitre actuel"""

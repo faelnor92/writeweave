@@ -23,6 +23,7 @@ class Toolbar(QWidget):
     ai_action_requested = pyqtSignal(str)  # action_type
     theme_change_requested = pyqtSignal(str)  # theme_name
     export_requested = pyqtSignal()  # demande d'export
+    versions_requested = pyqtSignal()  # demande de gestion des versions
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -149,6 +150,25 @@ class Toolbar(QWidget):
             }
         """)
         layout.addWidget(btn_export)
+
+        # === Versions ===
+        btn_versions = QPushButton("🕐 Versions")
+        btn_versions.setToolTip("Gérer les versions du chapitre actuel")
+        btn_versions.clicked.connect(lambda: self.versions_requested.emit())
+        btn_versions.setStyleSheet("""
+            QPushButton {
+                padding: 5px 15px;
+                background-color: #6f42c1;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #5a32a3;
+            }
+        """)
+        layout.addWidget(btn_versions)
 
         layout.addSpacing(20)
 
