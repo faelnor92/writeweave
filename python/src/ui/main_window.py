@@ -15,6 +15,8 @@ from ui.sidebar import Sidebar
 from ui.toolbar import Toolbar
 from ui.search_dialog import SearchDialog
 from ui.right_panel import RightPanel
+from ui.export_dialog import ExportDialog
+from services.export_service import ExportService
 from utils import themes
 
 logger = logging.getLogger(__name__)
@@ -40,7 +42,10 @@ class MainWindow(QWidget):
         self.current_chapter = None
         self._unsaved_changes = False
 
-        # Dialog de recherche
+        # Services
+        self.export_service = ExportService()
+
+        # Dialogs
         self.search_dialog = None
 
         self._init_ui()
@@ -123,6 +128,7 @@ class MainWindow(QWidget):
         self.toolbar.format_requested.connect(self.editor.apply_format)
         self.toolbar.ai_action_requested.connect(self.editor.handle_ai_action)
         self.toolbar.theme_change_requested.connect(self.on_theme_change)
+        self.toolbar.export_requested.connect(self.show_export_dialog)
 
         # Appliquer le thème sauvegardé
         from PyQt6.QtCore import QSettings
@@ -328,6 +334,36 @@ class MainWindow(QWidget):
         """Appelé quand l'utilisateur change de thème"""
         logger.info(f"Changement de thème : {theme_name}")
         themes.apply_theme(self, theme_name)
+
+    def show_export_dialog(self):
+        """Affiche le dialog d'export"""
+        if not self.current_novel:
+            QMessageBox.warning(
+                self,
+                "Aucun roman sélectionné",
+                "Veuillez d'abord sélectionner un roman à exporter."
+            )
+            return
+
+        if not self.current_novel.chapters:
+            QMessageBox.warning(
+                self,
+                "Roman vide",
+                "Le roman ne contient aucun chapitre à exporter."
+            )
+            return
+
+        # Sauvegarder le chapitre actuel avant export
+        if self._unsaved_changes:
+            self.save_current_chapter()
+
+        # Ouvrir le dialog
+        dialog = ExportDialog(
+            novel=self.current_novel,
+            export_service=self.export_service,
+            parent=self
+        )
+        dialog.exec()
 
     def save_current_chapter(self):
         """Sauvegarde le chapitre actuel"""

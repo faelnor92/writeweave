@@ -22,6 +22,7 @@ class Toolbar(QWidget):
     format_requested = pyqtSignal(str, object)  # format_type, value
     ai_action_requested = pyqtSignal(str)  # action_type
     theme_change_requested = pyqtSignal(str)  # theme_name
+    export_requested = pyqtSignal()  # demande d'export
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -129,6 +130,27 @@ class Toolbar(QWidget):
         layout.addWidget(btn_number_list)
 
         layout.addStretch()
+
+        # === Export ===
+        btn_export = QPushButton("📤 Exporter")
+        btn_export.setToolTip("Exporter le roman en PDF ou DOCX")
+        btn_export.clicked.connect(lambda: self.export_requested.emit())
+        btn_export.setStyleSheet("""
+            QPushButton {
+                padding: 5px 15px;
+                background-color: #28a745;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #218838;
+            }
+        """)
+        layout.addWidget(btn_export)
+
+        layout.addSpacing(20)
 
         # === Thème ===
         self.btn_theme = QPushButton("🌙 Sombre")
