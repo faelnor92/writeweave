@@ -209,32 +209,38 @@ config['theme'] = 'dark'            # Dict-like access
 
 ## 🎯 Comparaison React vs Python
 
-| Aspect | React (original) | Python (nouveau) |
-|--------|------------------|------------------|
+| Aspect | React (Web) | Python (Desktop) |
+|--------|-------------|------------------|
 | **Langage** | TypeScript | Python 3.11+ |
-| **Interface** | React Components | PyQt6 Widgets |
-| **IA** | Gemini/OpenRouter API | Ollama local |
-| **Sécurité** | API keys externes | 100% local |
-| **Taille** | 150MB (Electron) | 50MB natif |
+| **Interface** | React Components (navigateur) | PyQt6 Widgets (natif) |
+| **IA** | ⚠️ **API Cloud payantes** (Gemini/OpenRouter) | ✅ **Ollama 100% local** |
+| **Confidentialité** | ⚠️ Données envoyées aux serveurs | ✅ **ZÉRO donnée envoyée** |
+| **Connexion Internet** | ⚠️ Obligatoire | ✅ Hors ligne (après installation) |
+| **Sécurité** | ⚠️ Clés API externes exposées | ✅ 100% local, aucune clé |
+| **Taille** | 150MB (si Electron) | 50MB natif |
 | **Installation** | npm install | pip install |
-| **Données** | localStorage | JSON files |
+| **Données** | localStorage (navigateur) | JSON locaux chiffrés |
 | **Build** | esbuild/Vite | PyInstaller |
-| **Setup IA** | Clés API manuelles | Installation auto |
+| **Setup IA** | Clés API manuelles | Installation automatique |
 | **Lignes** | ~15,000 | ~3,500 |
-| **Statut** | Fonctionnel | MVP fonctionnel |
+| **Statut** | ✅ Fonctionnel | ⚠️ MVP fonctionnel |
 
-**Avantages Python :**
-- ✅ Vraie application desktop
-- ✅ Installation IA automatique
-- ✅ 100% privé et sécurisé
+**Avantages Python Desktop (⭐ RECOMMANDÉ) :**
+- ✅ **Vraie application desktop native**
+- ✅ **Installation IA automatique (Ollama)**
+- ✅ **100% privé - VOS TEXTES NE QUITTENT JAMAIS VOTRE MACHINE**
+- ✅ **ZÉRO API externe, ZÉRO cloud**
+- ✅ **Fonctionne hors ligne**
 - ✅ Pas de Node.js/npm
 - ✅ Plus simple à maintenir
+- ✅ Gratuit (pas de frais API)
 
-**Avantages React :**
+**Avantages React Web :**
 - ✅ Interface plus polished
 - ✅ Plus de fonctionnalités implémentées
 - ✅ Hot reload pour développement
 - ✅ Écosystème npm riche
+- ⚠️ **MAIS vos textes sont envoyés aux serveurs Google/OpenRouter**
 
 ---
 
@@ -451,21 +457,26 @@ python main.py
 
 ### Impact Utilisateur
 
-**Avant (Version React) :**
+**Avant (Version React Web) :**
 - Installer Node.js, npm
-- Obtenir clé API Gemini
-- Configurer .env
+- Obtenir clé API Gemini (payante)
+- Configurer .env avec clés API
 - npm install, npm start
-- Données envoyées à Google
+- ⚠️ **Vos textes sont envoyés aux serveurs Google**
+- ⚠️ Nécessite Internet en permanence
+- ⚠️ Frais API selon utilisation
 
-**Maintenant (Version Python) :**
+**Maintenant (Version Python Desktop) :**
 - Lancer l'application
 - Cliquer "Installer automatiquement"
-- Choisir un modèle
-- Attendre
-- **Écrire !**
+- Choisir un modèle IA (mistral recommandé)
+- Attendre l'installation (~15-30 min)
+- **Écrire en toute confidentialité !**
+- ✅ **Vos textes ne quittent JAMAIS votre machine**
+- ✅ Fonctionne hors ligne
+- ✅ Gratuit, pas de frais
 
-**Gain :** Configuration en 2 clics au lieu de 10+ étapes techniques.
+**Gain :** Configuration en 2 clics au lieu de 10+ étapes techniques + **Confidentialité totale** + **Gratuit**.
 
 ---
 

@@ -63,7 +63,9 @@ Application de bureau native avec IA 100% locale et confidentialité maximale.
 - ✅ **Données Locales** - Fichiers JSON sécurisés
 - ✅ **Hors Ligne** - Fonctionne sans Internet (après installation)
 - ✅ **Cross-Platform** - Windows, macOS, Linux
-- ✅ **Sécurisé** - Pas d'API externe, pas de télémétrie
+- ✅ **Sécurisé** - ZÉRO API externe, ZÉRO télémétrie
+
+**⚠️ IMPORTANT :** Cette version **N'UTILISE PAS** Google Gemini, OpenRouter, ou toute autre API externe. L'IA fonctionne entièrement sur votre machine via Ollama.
 
 ### 🚀 Installation Rapide
 

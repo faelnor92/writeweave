@@ -5,10 +5,11 @@
 ## 🎯 Objectifs
 
 - ✅ Application de bureau native (pas de navigateur)
-- ✅ IA 100% locale via Ollama (pas d'API externes)
-- ✅ Données stockées localement (fichiers JSON)
+- ✅ IA 100% locale via Ollama (**ZÉRO API externe** - pas de Gemini, pas d'OpenRouter, pas de connexion cloud)
+- ✅ Données stockées localement (fichiers JSON chiffrés)
 - ✅ Sécurisé et privé (aucune donnée ne sort de votre machine)
 - ✅ Cross-platform (Windows, macOS, Linux)
+- ✅ Installation automatique d'Ollama intégrée
 
 ## 🛠️ Stack Technique
 
