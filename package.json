@@ -4,9 +4,25 @@
   "description": "Une application web pour écrire des romans avec des fonctionnalités d'édition avancées et une assistance par IA de Gemini pour améliorer et continuer votre texte.",
   "scripts": {
     "start": "esbuild index.tsx --servedir=./ --bundle --jsx=automatic --loader:.ts=tsx",
-    "build": "esbuild index.tsx --bundle --outfile=dist/bundle.js --jsx=automatic --loader:.ts=tsx && cp index.html dist/index.html && cp -r locales dist/locales && cp -r assets dist/assets"
+    "build": "esbuild index.tsx --bundle --outfile=dist/bundle.js --jsx=automatic --loader:.ts=tsx && cp index.html dist/index.html && cp -r locales dist/locales && cp -r assets dist/assets",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@google/genai": "^0.21.0",
+    "docx": "^8.5.0",
+    "file-saver": "^2.0.5",
+    "jspdf": "^2.5.2",
+    "jspdf-autotable": "^3.8.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "uuid": "^10.0.0"
   },
   "devDependencies": {
-    "esbuild": "^0.21.4"
+    "@types/file-saver": "^2.0.7",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@types/uuid": "^10.0.0",
+    "esbuild": "^0.21.4",
+    "typescript": "^5.6.3"
   }
 }

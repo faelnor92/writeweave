@@ -103,10 +103,10 @@ const AppContent: React.FC = () => {
     const saveData = useCallback((dataToSave: { novels: Novel[], activeNovelId: string | null, activeChapterId: string | null}) => {
       const dataWithLastChapter = {
         ...dataToSave,
-        activeChapterIds: {
+        activeChapterIds: dataToSave.activeNovelId ? {
           ...loadFromLocalStorage<{activeChapterIds: Record<string, string>}>('writeweave_data')?.activeChapterIds,
-          [dataToSave.activeNovelId!]: dataToSave.activeChapterId
-        }
+          [dataToSave.activeNovelId]: dataToSave.activeChapterId
+        } : {}
       };
       return saveToLocalStorage('writeweave_data', dataWithLastChapter);
     }, []);
@@ -297,7 +297,7 @@ const AppContent: React.FC = () => {
             }
         } catch (error) {
             console.error("Erreur d'importation de la sauvegarde:", error);
-            addToast(`Erreur d'importation : ${error instanceof Error ? error.message : "Fichier JSON malformé."}`, 'error');
+            addToast(t('toast.importError', { error: error instanceof Error ? error.message : t('toast.malformedJson') }), 'error');
         }
     }, [setNovels, addToast, t]);
     
@@ -341,7 +341,20 @@ const AppContent: React.FC = () => {
         recognitionRef.current = new SpeechRecognitionImpl();
         const recognition = recognitionRef.current;
         recognition.continuous = true;
-        recognition.lang = language === 'en' ? 'en-US' : 'fr-FR';
+
+        // Map language codes to speech recognition locales
+        const langMap: Record<string, string> = {
+            'en': 'en-US',
+            'fr': 'fr-FR',
+            'es': 'es-ES',
+            'de': 'de-DE',
+            'it': 'it-IT',
+            'pt': 'pt-PT',
+            'ru': 'ru-RU',
+            'zh': 'zh-CN',
+            'ja': 'ja-JP'
+        };
+        recognition.lang = langMap[language] || 'en-US';
         recognition.interimResults = false;
 
         recognition.onresult = async (event: SpeechRecognitionEvent) => {

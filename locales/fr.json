@@ -70,6 +70,8 @@
     "legalNoticeGenerated": "Mentions légales générées avec succès !",
     "exportSuccess": "Manuscrit exporté avec succès !",
     "exportError": "Erreur d'exportation: {error}",
+    "importError": "Erreur d'importation : {error}",
+    "malformedJson": "Fichier JSON malformé.",
     "aiError": "Erreur IA: {error}",
     "exporting": "Exportation en cours..."
   }

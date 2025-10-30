@@ -70,6 +70,8 @@
     "legalNoticeGenerated": "Legal notice generated successfully!",
     "exportSuccess": "Manuscript exported successfully!",
     "exportError": "Export error: {error}",
+    "importError": "Import error: {error}",
+    "malformedJson": "Malformed JSON file.",
     "aiError": "AI Error: {error}",
     "exporting": "Exporting in progress..."
   }
