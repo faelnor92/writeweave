@@ -5,7 +5,7 @@
 import logging
 from PyQt6.QtWidgets import QTextEdit
 from PyQt6.QtCore import pyqtSignal, Qt
-from PyQt6.QtGui import QFont, QTextCharFormat, QTextCursor
+from PyQt6.QtGui import QFont, QTextCharFormat, QTextCursor, QTextDocument
 
 logger = logging.getLogger(__name__)
 
@@ -263,3 +263,91 @@ class Editor(QTextEdit):
     def get_character_count(self) -> int:
         """Retourne le nombre de caractères"""
         return len(self.get_plain_text())
+
+    def find_text(self, search_text: str, case_sensitive: bool = False) -> bool:
+        """
+        Recherche du texte dans l'éditeur
+
+        Args:
+            search_text: Le texte à rechercher
+            case_sensitive: Si True, recherche sensible à la casse
+
+        Returns:
+            True si trouvé, False sinon
+        """
+        flags = QTextDocument.FindFlag(0)
+        if case_sensitive:
+            flags |= QTextDocument.FindFlag.FindCaseSensitively
+
+        found = self.find(search_text, flags)
+
+        if not found:
+            # Recommencer depuis le début
+            cursor = self.textCursor()
+            cursor.movePosition(QTextCursor.MoveOperation.Start)
+            self.setTextCursor(cursor)
+            found = self.find(search_text, flags)
+
+        if not found:
+            logger.info(f"Texte non trouvé : {search_text}")
+
+        return found
+
+    def replace_current(self, search_text: str, replace_text: str, case_sensitive: bool = False):
+        """
+        Remplace le texte actuellement sélectionné
+
+        Args:
+            search_text: Le texte à rechercher
+            replace_text: Le texte de remplacement
+            case_sensitive: Si True, recherche sensible à la casse
+        """
+        cursor = self.textCursor()
+
+        if cursor.hasSelection():
+            selected = cursor.selectedText()
+
+            # Vérifier si le texte sélectionné correspond
+            if case_sensitive:
+                matches = selected == search_text
+            else:
+                matches = selected.lower() == search_text.lower()
+
+            if matches:
+                cursor.insertText(replace_text)
+                logger.info(f"Remplacé : {search_text} -> {replace_text}")
+
+        # Rechercher la prochaine occurrence
+        self.find_text(search_text, case_sensitive)
+
+    def replace_all(self, search_text: str, replace_text: str, case_sensitive: bool = False) -> int:
+        """
+        Remplace toutes les occurrences
+
+        Args:
+            search_text: Le texte à rechercher
+            replace_text: Le texte de remplacement
+            case_sensitive: Si True, recherche sensible à la casse
+
+        Returns:
+            Le nombre de remplacements effectués
+        """
+        count = 0
+
+        # Aller au début
+        cursor = self.textCursor()
+        cursor.movePosition(QTextCursor.MoveOperation.Start)
+        self.setTextCursor(cursor)
+
+        flags = QTextDocument.FindFlag(0)
+        if case_sensitive:
+            flags |= QTextDocument.FindFlag.FindCaseSensitively
+
+        # Remplacer toutes les occurrences
+        while self.find(search_text, flags):
+            cursor = self.textCursor()
+            cursor.insertText(replace_text)
+            count += 1
+
+        logger.info(f"Remplacé {count} occurrences : {search_text} -> {replace_text}")
+        return count

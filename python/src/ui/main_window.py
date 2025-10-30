@@ -13,6 +13,8 @@ from PyQt6.QtGui import QAction, QKeySequence
 from ui.editor import Editor
 from ui.sidebar import Sidebar
 from ui.toolbar import Toolbar
+from ui.search_dialog import SearchDialog
+from utils import themes
 
 logger = logging.getLogger(__name__)
 
@@ -37,8 +39,12 @@ class MainWindow(QWidget):
         self.current_chapter = None
         self._unsaved_changes = False
 
+        # Dialog de recherche
+        self.search_dialog = None
+
         self._init_ui()
         self._connect_signals()
+        self._setup_shortcuts()
 
         logger.info("MainWindow initialisée")
 
@@ -108,6 +114,16 @@ class MainWindow(QWidget):
         # Toolbar -> Editor
         self.toolbar.format_requested.connect(self.editor.apply_format)
         self.toolbar.ai_action_requested.connect(self.editor.handle_ai_action)
+        self.toolbar.theme_change_requested.connect(self.on_theme_change)
+
+        # Appliquer le thème sauvegardé
+        from PyQt6.QtCore import QSettings
+        settings = QSettings()
+        saved_theme = settings.value("theme", "light", type=str)
+        self.on_theme_change(saved_theme)
+        if saved_theme == "dark":
+            self.toolbar.btn_theme.setText("☀️ Clair")
+            self.toolbar.current_theme = "dark"
 
     def on_novel_selected(self, novel_id: str):
         """Appelé quand un roman est sélectionné"""
@@ -227,6 +243,65 @@ class MainWindow(QWidget):
         # Mettre à jour l'affichage
         stats_text = f"Mots : {word_count:,}  |  Caractères : {char_count:,}  |  Pages : ~{page_count}  |  Lecture : ~{reading_time} min"
         self.stats_label.setText(stats_text)
+
+    def _setup_shortcuts(self):
+        """Configure les raccourcis clavier"""
+        # Ctrl+F pour rechercher
+        search_shortcut = QKeySequence.StandardKey.Find
+        search_action = QAction(self)
+        search_action.setShortcut(search_shortcut)
+        search_action.triggered.connect(self.show_search_dialog)
+        self.addAction(search_action)
+
+        # Ctrl+S pour sauvegarder
+        save_shortcut = QKeySequence.StandardKey.Save
+        save_action = QAction(self)
+        save_action.setShortcut(save_shortcut)
+        save_action.triggered.connect(self.save_current_chapter)
+        self.addAction(save_action)
+
+        logger.info("Raccourcis clavier configurés")
+
+    def show_search_dialog(self):
+        """Affiche le dialog de recherche"""
+        if not self.search_dialog:
+            self.search_dialog = SearchDialog(self)
+
+            # Connecter les signaux
+            self.search_dialog.find_next.connect(self.editor.find_text)
+            self.search_dialog.replace_current.connect(self.editor.replace_current)
+            self.search_dialog.replace_all.connect(self._on_replace_all)
+
+        # Pré-remplir avec le texte sélectionné
+        cursor = self.editor.textCursor()
+        if cursor.hasSelection():
+            self.search_dialog.set_search_text(cursor.selectedText())
+
+        self.search_dialog.show()
+        self.search_dialog.raise_()
+        self.search_dialog.activateWindow()
+
+    def _on_replace_all(self, search_text: str, replace_text: str, case_sensitive: bool):
+        """Appelé quand on remplace tout"""
+        count = self.editor.replace_all(search_text, replace_text, case_sensitive)
+
+        if count > 0:
+            QMessageBox.information(
+                self,
+                "Remplacement effectué",
+                f"{count} occurrence(s) remplacée(s)."
+            )
+        else:
+            QMessageBox.information(
+                self,
+                "Aucun résultat",
+                f"Aucune occurrence de '{search_text}' trouvée."
+            )
+
+    def on_theme_change(self, theme_name: str):
+        """Appelé quand l'utilisateur change de thème"""
+        logger.info(f"Changement de thème : {theme_name}")
+        themes.apply_theme(self, theme_name)
 
     def save_current_chapter(self):
         """Sauvegarde le chapitre actuel"""

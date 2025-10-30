@@ -21,6 +21,7 @@ class Toolbar(QWidget):
     # Signaux
     format_requested = pyqtSignal(str, object)  # format_type, value
     ai_action_requested = pyqtSignal(str)  # action_type
+    theme_change_requested = pyqtSignal(str)  # theme_name
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -129,6 +130,28 @@ class Toolbar(QWidget):
 
         layout.addStretch()
 
+        # === Thème ===
+        self.btn_theme = QPushButton("🌙 Sombre")
+        self.btn_theme.setToolTip("Basculer entre thème clair et sombre")
+        self.btn_theme.clicked.connect(self._toggle_theme)
+        self.btn_theme.setStyleSheet("""
+            QPushButton {
+                padding: 5px 15px;
+                background-color: #6c757d;
+                color: white;
+                border: none;
+                border-radius: 3px;
+            }
+            QPushButton:hover {
+                background-color: #5a6268;
+            }
+        """)
+        layout.addWidget(self.btn_theme)
+
+        self.current_theme = "light"
+
+        layout.addSpacing(20)
+
         # === Actions IA ===
 
         layout.addWidget(QLabel("IA :"))
@@ -195,3 +218,14 @@ class Toolbar(QWidget):
                 background-color: #0056b3;
             }
         """)
+
+    def _toggle_theme(self):
+        """Bascule entre thème clair et sombre"""
+        if self.current_theme == "light":
+            self.current_theme = "dark"
+            self.btn_theme.setText("☀️ Clair")
+        else:
+            self.current_theme = "light"
+            self.btn_theme.setText("🌙 Sombre")
+
+        self.theme_change_requested.emit(self.current_theme)
