@@ -8,6 +8,7 @@ from typing import List
 from .chapter import Chapter
 from .character import Character
 from .place import Place
+from .event import Event
 
 
 @dataclass
@@ -21,6 +22,7 @@ class Novel:
     chapters: List[Chapter] = field(default_factory=list)
     characters: List[Character] = field(default_factory=list)
     places: List[Place] = field(default_factory=list)
+    events: List[Event] = field(default_factory=list)
 
     # Métadonnées
     author: str = ""
@@ -39,6 +41,7 @@ class Novel:
             'chapters': [chapter.to_dict() for chapter in self.chapters],
             'characters': [char.to_dict() for char in self.characters],
             'places': [place.to_dict() for place in self.places],
+            'events': [event.to_dict() for event in self.events],
             'author': self.author,
             'genre': self.genre,
             'synopsis': self.synopsis,
@@ -72,6 +75,11 @@ class Novel:
         # Charger les lieux
         novel.places = [
             Place.from_dict(place) for place in data.get('places', [])
+        ]
+
+        # Charger les événements
+        novel.events = [
+            Event.from_dict(event) for event in data.get('events', [])
         ]
 
         return novel
