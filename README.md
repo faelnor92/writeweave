@@ -1,66 +1,199 @@
-# WriteWeave - AI-Powered Novel Writing Application
+# WriteWeave - Application d'Écriture de Romans avec IA
 
 <p align="center">
-  <strong>A sophisticated web-based novel writing application with advanced AI-powered editing and creative assistance.</strong>
+  <strong>Application d'aide à l'écriture de romans avec assistance par Intelligence Artificielle.</strong>
 </p>
 
-## 📖 Overview
+---
 
-WriteWeave is a comprehensive novel writing tool designed for authors who want professional-grade features including:
+## 🌟 Deux Versions Disponibles
 
-- ✍️ **Advanced Text Editor** with rich formatting and version control (snapshots)
-- 🤖 **AI-Powered Assistance** from Google Gemini, OpenRouter, or local models
-- 🌍 **Multi-language Support** (French, English, Spanish, German, Italian, Portuguese, Russian, Chinese, Japanese)
-- 👥 **Character Management** with detailed profiles and relationship mapping
-- 📍 **Place Management** with rich descriptions
-- ⏱️ **Timeline Visualization** for plot tracking
-- 📊 **Analytics & Insights** including emotional arc analysis, pacing, and style analysis
-- 📝 **Style Studio** to define and maintain your writing voice
-- 📤 **Export Options** (PDF, DOCX) with professional formatting
-- 🎯 **Marketing Tools** for content generation
-- 🔄 **Auto-save** functionality with local storage
+Ce dépôt contient **deux versions** de WriteWeave :
 
-## 🚀 Getting Started
+| Version | Type | Statut | Recommandation |
+|---------|------|--------|----------------|
+| **[Web](#-version-web-reacttypescript)** | Application web | ✅ Stable | Pour accès rapide et multi-appareils |
+| **[Desktop](#-version-desktop-pythonpyqt6--recommandé)** | Application de bureau | ⚠️ Alpha | ⭐ **Pour confidentialité et usage local** |
 
-### Prerequisites
+---
 
-- **Node.js** (v18 or higher recommended)
-- **npm** (comes with Node.js)
-- A **Gemini API key** (or OpenRouter API key, or local AI model)
+## 🌐 Version Web (React/TypeScript)
 
-### Installation
+### 🎯 Fonctionnalités
 
-1. **Clone the repository:**
+- ✍️ **Éditeur de Texte Avancé** avec formatage riche et versions (snapshots)
+- 🤖 **Assistance IA** via Google Gemini, OpenRouter, ou modèles locaux
+- 🌍 **Support Multilingue** (9 langues : FR, EN, ES, DE, IT, PT, RU, ZH, JA)
+- 👥 **Gestion des Personnages** avec profils détaillés et relations
+- 📍 **Gestion des Lieux** avec descriptions riches
+- ⏱️ **Visualisation Timeline** pour suivi de l'intrigue
+- 📊 **Analyses & Insights** (arc émotionnel, rythme, style)
+- 📝 **Studio de Style** pour définir votre voix d'écriture
+- 📤 **Export Professionnel** (PDF, DOCX)
+- 🎯 **Outils Marketing** pour génération de contenu
+- 🔄 **Sauvegarde Automatique** dans le navigateur
+
+### 🚀 Installation Rapide
+
+```bash
+# 1. Installer les dépendances
+npm install
+
+# 2. Configurer l'API (créer un fichier .env.local)
+echo "GEMINI_API_KEY=votre_cle_api" > .env.local
+
+# 3. Lancer l'application
+npm start
+```
+
+**📖 Documentation complète :** Voir le reste de ce README pour plus de détails.
+
+---
+
+## 🖥️ Version Desktop (Python/PyQt6) ⭐ RECOMMANDÉ
+
+Application de bureau native avec IA 100% locale et confidentialité maximale.
+
+### 🎯 Fonctionnalités
+
+- ✅ **Application Native** - Pas de navigateur requis
+- ✅ **100% Local** - Vos textes ne quittent jamais votre machine
+- ✅ **IA Locale via Ollama** - LLaMA, Mistral, etc.
+- ✅ **Installation Automatique d'Ollama** - Configuration en un clic
+- ✅ **Données Locales** - Fichiers JSON sécurisés
+- ✅ **Hors Ligne** - Fonctionne sans Internet (après installation)
+- ✅ **Cross-Platform** - Windows, macOS, Linux
+- ✅ **Sécurisé** - Pas d'API externe, pas de télémétrie
+
+### 🚀 Installation Rapide
+
+```bash
+# 1. Aller dans le dossier python
+cd python/
+
+# 2. Créer un environnement virtuel
+python -m venv venv
+
+# 3. Activer l'environnement
+source venv/bin/activate  # Linux/Mac
+# ou
+venv\Scripts\activate     # Windows
+
+# 4. Installer les dépendances
+pip install -r requirements.txt
+
+# 5. Lancer l'application
+python main.py
+```
+
+**🎉 L'assistant d'installation d'Ollama se lance automatiquement au premier démarrage !**
+
+### 📖 Documentation Complète
+
+- **[README Python](./python/README.md)** - Documentation complète
+- **[Guide de Démarrage](./python/GETTING_STARTED.md)** - Tutoriel pas à pas
+- **[Auto-Installation Ollama](./python/AUTO_INSTALL.md)** - Détails système d'installation
+- **[Résumé du Projet](./python/PROJECT_SUMMARY.md)** - Architecture et fonctionnalités
+
+### 🤖 Modèles IA Recommandés
+
+| Modèle | Taille | RAM | Description |
+|--------|--------|-----|-------------|
+| **mistral** | 4.1 GB | 8 GB | ⭐ Recommandé - Léger et performant |
+| llama2 | 3.8 GB | 8 GB | Polyvalent de Meta |
+| llama2:13b | 7.3 GB | 16 GB | Plus puissant (si 16+ GB RAM) |
+| neural-chat | 4.1 GB | 8 GB | Spécialisé en création |
+
+---
+
+## 📊 Comparaison des Versions
+
+| Critère | Version Web | Version Desktop |
+|---------|-------------|-----------------|
+| **Installation** | ⚡ npm install | 🔧 Python + venv |
+| **Taille** | 📦 ~10 MB | 📦 ~4-7 GB (avec modèle IA) |
+| **Confidentialité** | ⚠️ API externes | ✅ 100% local |
+| **Hors ligne** | ❌ Non | ✅ Oui |
+| **IA** | ☁️ Cloud (rapide) | 🖥️ Local (selon machine) |
+| **Plateforme** | 🌐 Navigateur | 🖥️ Desktop natif |
+| **Coût** | 💰 API payante | 💰 Gratuit |
+| **Maturité** | ✅ Stable | ⚠️ Alpha |
+
+**💡 Conseil :** Utilisez la version **Desktop** pour confidentialité, la version **Web** pour accessibilité.
+
+---
+
+## 📁 Structure du Projet
+
+```
+writeweave/
+│
+├── README.md                  # Ce fichier
+│
+├── 🌐 VERSION WEB (React)
+├── src/                       # Code source React
+├── components/                # Composants React
+├── services/                  # Services (AI, export)
+├── providers/                 # Providers IA (Gemini, OpenRouter)
+├── locales/                   # Traductions (9 langues)
+├── package.json              # Dépendances npm
+└── vite.config.ts            # Configuration Vite
+│
+└── 🖥️ VERSION DESKTOP (Python)
+    └── python/
+        ├── README.md              # Doc Python détaillée
+        ├── main.py               # Point d'entrée
+        ├── requirements.txt      # Dépendances Python
+        ├── src/
+        │   ├── app.py            # Application principale
+        │   ├── ui/               # Interface PyQt6
+        │   ├── models/           # Modèles de données
+        │   ├── services/         # Services (IA, storage, Ollama)
+        │   └── utils/            # Configuration, i18n
+        └── data/                 # Données utilisateur
+```
+
+---
+
+## 🌐 Documentation Version Web (React)
+
+### Prérequis
+
+- **Node.js** v18+ recommandé
+- **npm** (inclus avec Node.js)
+- Une **clé API Gemini** (ou OpenRouter)
+
+### Installation Détaillée
+
+1. **Cloner le dépôt :**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/faelnor92/writeweave.git
    cd writeweave
    ```
 
-2. **Install dependencies:**
+2. **Installer les dépendances :**
    ```bash
    npm install
    ```
 
-3. **Configure your API key:**
-
-   Copy the example environment file:
+3. **Configurer la clé API :**
    ```bash
    cp .env.example .env.local
    ```
 
-   Edit `.env.local` and add your Gemini API key:
-   ```
-   GEMINI_API_KEY=your_api_key_here
+   Éditer `.env.local` et ajouter votre clé :
+   ```env
+   GEMINI_API_KEY=votre_cle_api_ici
    ```
 
-   Get your API key from: https://makersuite.google.com/app/apikey
+   Obtenir une clé : https://makersuite.google.com/app/apikey
 
-4. **Run the development server:**
+4. **Lancer le serveur de développement :**
    ```bash
    npm start
    ```
 
-   The application will be available at `http://localhost:8000`
+   L'application sera disponible sur `http://localhost:8000`
 
 ## 🔧 Configuration
 
