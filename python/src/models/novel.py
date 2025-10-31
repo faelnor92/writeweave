@@ -11,6 +11,7 @@ from .place import Place
 from .event import Event
 from .relationship import Relationship
 from .note import Note
+from .writing_goal import WritingGoal
 
 
 @dataclass
@@ -27,6 +28,7 @@ class Novel:
     events: List[Event] = field(default_factory=list)
     relationships: List[Relationship] = field(default_factory=list)
     notes: List[Note] = field(default_factory=list)
+    writing_goals: List[WritingGoal] = field(default_factory=list)
 
     # Métadonnées
     author: str = ""
@@ -48,6 +50,7 @@ class Novel:
             'events': [event.to_dict() for event in self.events],
             'relationships': [rel.to_dict() for rel in self.relationships],
             'notes': [note.to_dict() for note in self.notes],
+            'writing_goals': [goal.to_dict() for goal in self.writing_goals],
             'author': self.author,
             'genre': self.genre,
             'synopsis': self.synopsis,
@@ -96,6 +99,11 @@ class Novel:
         # Charger les notes
         novel.notes = [
             Note.from_dict(note) for note in data.get('notes', [])
+        ]
+
+        # Charger les objectifs d'écriture
+        novel.writing_goals = [
+            WritingGoal.from_dict(goal) for goal in data.get('writing_goals', [])
         ]
 
         return novel
