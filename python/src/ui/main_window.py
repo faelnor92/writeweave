@@ -17,6 +17,7 @@ from ui.search_dialog import SearchDialog
 from ui.right_panel import RightPanel
 from ui.export_dialog import ExportDialog
 from ui.versions_dialog import VersionsDialog
+from ui.text_checker_dialog import TextCheckerDialog
 from services.export_service import ExportService
 from utils import themes
 
@@ -131,6 +132,7 @@ class MainWindow(QWidget):
         self.toolbar.theme_change_requested.connect(self.on_theme_change)
         self.toolbar.export_requested.connect(self.show_export_dialog)
         self.toolbar.versions_requested.connect(self.show_versions_dialog)
+        self.toolbar.checker_requested.connect(self.show_checker_dialog)
 
         # Appliquer le thème sauvegardé
         from PyQt6.QtCore import QSettings
@@ -404,6 +406,27 @@ class MainWindow(QWidget):
                 self.editor.set_content(restored_content)
                 self._unsaved_changes = False
                 logger.info("Contenu restauré depuis une version")
+
+    def show_checker_dialog(self):
+        """Affiche le dialog d'analyse de texte"""
+        # Récupérer le texte actuel de l'éditeur
+        text = self.editor.get_content()
+
+        if not text or not text.strip():
+            QMessageBox.information(
+                self,
+                "Aucun texte",
+                "L'éditeur est vide. Écrivez du texte avant de lancer l'analyse."
+            )
+            return
+
+        # Sauvegarder les changements avant analyse
+        if self._unsaved_changes:
+            self.save_current_chapter()
+
+        # Ouvrir le dialog d'analyse
+        dialog = TextCheckerDialog(text=text, parent=self)
+        dialog.exec()
 
     def save_current_chapter(self):
         """Sauvegarde le chapitre actuel"""

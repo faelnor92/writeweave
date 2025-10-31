@@ -24,6 +24,7 @@ class Toolbar(QWidget):
     theme_change_requested = pyqtSignal(str)  # theme_name
     export_requested = pyqtSignal()  # demande d'export
     versions_requested = pyqtSignal()  # demande de gestion des versions
+    checker_requested = pyqtSignal()  # demande d'analyse de texte
 
     def __init__(self, parent=None):
         super().__init__(parent)
@@ -169,6 +170,25 @@ class Toolbar(QWidget):
             }
         """)
         layout.addWidget(btn_versions)
+
+        # === Correcteur Avancé ===
+        btn_checker = QPushButton("🔍 Analyser")
+        btn_checker.setToolTip("Analyser le texte (répétitions, style, lisibilité)")
+        btn_checker.clicked.connect(lambda: self.checker_requested.emit())
+        btn_checker.setStyleSheet("""
+            QPushButton {
+                padding: 5px 15px;
+                background-color: #17a2b8;
+                color: white;
+                border: none;
+                border-radius: 3px;
+                font-weight: bold;
+            }
+            QPushButton:hover {
+                background-color: #138496;
+            }
+        """)
+        layout.addWidget(btn_checker)
 
         layout.addSpacing(20)
 
