@@ -9,6 +9,7 @@ from .chapter import Chapter
 from .character import Character
 from .place import Place
 from .event import Event
+from .relationship import Relationship
 
 
 @dataclass
@@ -23,6 +24,7 @@ class Novel:
     characters: List[Character] = field(default_factory=list)
     places: List[Place] = field(default_factory=list)
     events: List[Event] = field(default_factory=list)
+    relationships: List[Relationship] = field(default_factory=list)
 
     # Métadonnées
     author: str = ""
@@ -42,6 +44,7 @@ class Novel:
             'characters': [char.to_dict() for char in self.characters],
             'places': [place.to_dict() for place in self.places],
             'events': [event.to_dict() for event in self.events],
+            'relationships': [rel.to_dict() for rel in self.relationships],
             'author': self.author,
             'genre': self.genre,
             'synopsis': self.synopsis,
@@ -80,6 +83,11 @@ class Novel:
         # Charger les événements
         novel.events = [
             Event.from_dict(event) for event in data.get('events', [])
+        ]
+
+        # Charger les relations
+        novel.relationships = [
+            Relationship.from_dict(rel) for rel in data.get('relationships', [])
         ]
 
         return novel

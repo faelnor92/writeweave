@@ -1,5 +1,5 @@
 """
-Panel latéral droit avec onglets Personnages/Lieux/Timeline/Analytics
+Panel latéral droit avec onglets Personnages/Lieux/Relations/Timeline/Analytics
 """
 
 import logging
@@ -34,6 +34,7 @@ class RightPanel(QWidget):
         # Import des widgets
         from ui.characters_widget import CharactersWidget
         from ui.places_widget import PlacesWidget
+        from ui.relationships_widget import RelationshipsWidget
         from ui.timeline_widget import TimelineWidget
         from ui.analytics_widget import AnalyticsWidget
 
@@ -44,6 +45,10 @@ class RightPanel(QWidget):
         # Onglet Lieux
         self.places_widget = PlacesWidget(self.storage_service, self)
         self.tabs.addTab(self.places_widget, "📍 Lieux")
+
+        # Onglet Relations
+        self.relationships_widget = RelationshipsWidget(self.storage_service, self)
+        self.tabs.addTab(self.relationships_widget, "🔗 Relations")
 
         # Onglet Timeline
         self.timeline_widget = TimelineWidget(self.storage_service, self)
@@ -81,6 +86,7 @@ class RightPanel(QWidget):
         """Met à jour le roman actuel pour tous les widgets"""
         self.characters_widget.set_novel(novel)
         self.places_widget.set_novel(novel)
+        self.relationships_widget.set_novel(novel)
         self.timeline_widget.set_novel(novel)
         self.analytics_widget.set_novel(novel)
 
