@@ -10,6 +10,7 @@ from .character import Character
 from .place import Place
 from .event import Event
 from .relationship import Relationship
+from .note import Note
 
 
 @dataclass
@@ -25,6 +26,7 @@ class Novel:
     places: List[Place] = field(default_factory=list)
     events: List[Event] = field(default_factory=list)
     relationships: List[Relationship] = field(default_factory=list)
+    notes: List[Note] = field(default_factory=list)
 
     # Métadonnées
     author: str = ""
@@ -45,6 +47,7 @@ class Novel:
             'places': [place.to_dict() for place in self.places],
             'events': [event.to_dict() for event in self.events],
             'relationships': [rel.to_dict() for rel in self.relationships],
+            'notes': [note.to_dict() for note in self.notes],
             'author': self.author,
             'genre': self.genre,
             'synopsis': self.synopsis,
@@ -88,6 +91,11 @@ class Novel:
         # Charger les relations
         novel.relationships = [
             Relationship.from_dict(rel) for rel in data.get('relationships', [])
+        ]
+
+        # Charger les notes
+        novel.notes = [
+            Note.from_dict(note) for note in data.get('notes', [])
         ]
 
         return novel

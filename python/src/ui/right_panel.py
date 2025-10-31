@@ -36,6 +36,7 @@ class RightPanel(QWidget):
         from ui.places_widget import PlacesWidget
         from ui.relationships_widget import RelationshipsWidget
         from ui.timeline_widget import TimelineWidget
+        from ui.notes_widget import NotesWidget
         from ui.analytics_widget import AnalyticsWidget
 
         # Onglet Personnages
@@ -53,6 +54,10 @@ class RightPanel(QWidget):
         # Onglet Timeline
         self.timeline_widget = TimelineWidget(self.storage_service, self)
         self.tabs.addTab(self.timeline_widget, "🗓️ Timeline")
+
+        # Onglet Notes
+        self.notes_widget = NotesWidget(self.storage_service, self)
+        self.tabs.addTab(self.notes_widget, "📝 Notes")
 
         # Onglet Analytics
         self.analytics_widget = AnalyticsWidget(self)
@@ -88,6 +93,7 @@ class RightPanel(QWidget):
         self.places_widget.set_novel(novel)
         self.relationships_widget.set_novel(novel)
         self.timeline_widget.set_novel(novel)
+        self.notes_widget.set_novel(novel)
         self.analytics_widget.set_novel(novel)
 
     def update_analytics(self, text: str, chapter_title: str = None):
